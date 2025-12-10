@@ -9,6 +9,7 @@ jobs:
   notify-packagist:
     name: Notify Packagist
     runs-on: ubuntu-latest
+    environment: production
     env:
       PACKAGIST_PACKAGE: nordicscreen/q-play-api-client
     steps:
