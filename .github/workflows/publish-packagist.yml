@@ -1,0 +1,45 @@
+name: Publish to Packagist on tag
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  notify-packagist:
+    name: Notify Packagist
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      PACKAGIST_PACKAGE: nordicscreen/q-play-api-client
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Optional: create a GitHub Release from the tag. Comment out if not needed.
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          generate_release_notes: true
+
+      - name: Trigger Packagist update
+        env:
+          PACKAGIST_TOKEN: ${{ secrets.PACKAGIST_TOKEN }}
+        run: |
+          if [ -z "$PACKAGIST_TOKEN" ]; then
+            echo "PACKAGIST_TOKEN secret is not set." >&2
+            exit 1
+          fi
+          echo "Notifying Packagist about ${PACKAGIST_PACKAGE}…"
+          STATUS=$(curl -s -o /tmp/packagist.out -w "%{http_code}" \
+            -X POST \
+            -H "X-Api-Token: ${PACKAGIST_TOKEN}" \
+            "https://packagist.org/api/update-package/${PACKAGIST_PACKAGE}")
+          echo "HTTP $STATUS"
+          echo "Response:"
+          cat /tmp/packagist.out
+          case "$STATUS" in
+            2*|3*) exit 0 ;;
+            *) echo "Packagist update failed" >&2; exit 1 ;;
+          esac
