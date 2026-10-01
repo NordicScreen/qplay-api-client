@@ -36,8 +36,7 @@ class AppTemplateSection extends AbstractSection
 
     public function update(int|string $id, array $data): string|array
     {
-        // Prefer PATCH for updates
-        return $this->patch((string)$id, $data);
+        return $this->put((string)$id, $data);
     }
 
     public function deleteById(int|string $id): string|array
@@ -56,9 +55,13 @@ class AppTemplateSection extends AbstractSection
     /**
      * Get a specific version for a given app template.
      */
-    public function getVersion(int|string $templateId, int|string $version, int|string $patchVersion): string|array
-    {
-        return $this->get($templateId . '/version/' . $version . '.' . $patchVersion);
+    public function getVersion(
+        int|string $templateId,
+        int|string $version,
+        int|string|null $patchVersion = null
+    ): string|array {
+        $versionStr = $patchVersion !== null ? $version . '.' . $patchVersion : (string)$version;
+        return $this->get($templateId . '/version/' . $versionStr);
     }
 
     public function createVersion(int|string $templateId, array $data): string|array
@@ -69,14 +72,21 @@ class AppTemplateSection extends AbstractSection
     public function updateVersion(
         int|string $templateId,
         int|string $version,
-        int|string $patchVersion,
-        array $data
+        int|string|array $patchVersion,
+        array $data = []
     ): string|array {
-        return $this->patch($templateId . '/version/' . $version . '.' . $patchVersion, $data);
+        if (is_array($patchVersion)) {
+            return $this->put($templateId . '/version/' . $version, $patchVersion);
+        }
+        return $this->put($templateId . '/version/' . $version . '.' . $patchVersion, $data);
     }
 
-    public function deleteVersion(int|string $templateId, int|string $version, int|string $patchVersion): string|array
-    {
-        return $this->delete($templateId . '/version/' . $version . '.' . $patchVersion);
+    public function deleteVersion(
+        int|string $templateId,
+        int|string $version,
+        int|string|null $patchVersion = null
+    ): string|array {
+        $versionStr = $patchVersion !== null ? $version . '.' . $patchVersion : (string)$version;
+        return $this->delete($templateId . '/version/' . $versionStr);
     }
 }

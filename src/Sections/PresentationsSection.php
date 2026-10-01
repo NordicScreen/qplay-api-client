@@ -53,7 +53,7 @@ class PresentationsSection extends AbstractSection
      */
     public function update(int|string $id, array $data): string|array
     {
-        return $this->put((string)$id, $data);
+        return $this->patch((string)$id, $data);
     }
 
     /**

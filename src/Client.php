@@ -22,11 +22,13 @@ use QPlay\Api\Client\Sections\AppTemplateSection;
 use QPlay\Api\Client\Sections\Developer\AppSection as DevAppSection;
 use QPlay\Api\Client\Sections\Developer\AppTemplateSection as DevAppTemplateSection;
 use QPlay\Api\Client\Sections\Developer\IntegrationTemplateSection as DevIntegrationTemplateSection;
+use QPlay\Api\Client\Sections\Developer\MediaSection as DevMediaSection;
 use QPlay\Api\Client\Sections\EventsSection;
 use QPlay\Api\Client\Sections\IntegrationSection;
 use QPlay\Api\Client\Sections\IntegrationTemplateSection;
 use QPlay\Api\Client\Sections\MediaLibrarySection;
 use QPlay\Api\Client\Sections\PlayersSection;
+use QPlay\Api\Client\Sections\PlaylistSection;
 use QPlay\Api\Client\Sections\PresentationsSection;
 use QPlay\Api\Client\Sections\ServerSection;
 use QPlay\Api\Client\Sections\SystemSection;
@@ -53,6 +55,7 @@ class Client
     private ?MediaLibrarySection $media = null;
     private ?PlayersSection $players = null;
     private ?PresentationsSection $presentations = null;
+    private ?PlaylistSection $playlist = null;
     private ?EventsSection $events = null;
     private ?IntegrationSection $integration = null;
     private ?IntegrationTemplateSection $integrationTemplate = null;
@@ -61,6 +64,7 @@ class Client
     private ?DevIntegrationTemplateSection $developerIntegrationTemplate = null;
     private ?DevAppSection $developerApp = null;
     private ?DevAppTemplateSection $developerAppTemplate = null;
+    private ?DevMediaSection $developerMedia = null;
     private ?SystemSection $system = null;
     private ?ServerSection $server = null;
     private ?string $token = null;
@@ -101,11 +105,19 @@ class Client
     }
 
     /**
-     * Presentations API (/presentations)
+     * Presentations API (/presentation)
      */
     public function presentations(): PresentationsSection
     {
-        return $this->presentations ??= new PresentationsSection($this, 'presentations');
+        return $this->presentations ??= new PresentationsSection($this, 'presentation');
+    }
+
+    /**
+     * Playlist API (/playlist)
+     */
+    public function playlist(): PlaylistSection
+    {
+        return $this->playlist ??= new PlaylistSection($this, 'playlist');
     }
 
     /**
@@ -133,15 +145,15 @@ class Client
     }
 
     /**
-     * App API (/apps) — read-only
+     * App API (/app) — read-only
      */
     public function app(): AppSection
     {
-        return $this->app ??= new AppSection($this, 'apps');
+        return $this->app ??= new AppSection($this, 'app');
     }
 
     /**
-     * App Template API (/app-template) — read-only
+     * App Template API (/app-template)
      */
     public function appTemplate(): AppTemplateSection
     {
@@ -149,28 +161,28 @@ class Client
     }
 
     /**
-     * System API (/system)
+     * System API (/status, /health)
      */
     public function system(): SystemSection
     {
-        return $this->system ??= new SystemSection($this, 'system');
+        return $this->system ??= new SystemSection($this, '');
     }
 
     /**
-     * Server API (/server)
+     * Server API (/integration-server)
      */
     public function server(): ServerSection
     {
-        return $this->server ??= new ServerSection($this, 'server');
+        return $this->server ??= new ServerSection($this, 'integration-server');
     }
 
     /**
-     * Developer App API (/developer/apps)
+     * Developer App API (/developer/app)
      */
     public function developerApp(): DevAppSection
     {
         return $this->developerApp
-            ??= new DevAppSection($this, 'developer/apps');
+            ??= new DevAppSection($this, 'developer/app');
     }
 
     /**
@@ -189,6 +201,15 @@ class Client
     {
         return $this->developerIntegrationTemplate
             ??= new DevIntegrationTemplateSection($this, 'developer/integration-template');
+    }
+
+    /**
+     * Developer Media API (/developer/media)
+     */
+    public function developerMedia(): DevMediaSection
+    {
+        return $this->developerMedia
+            ??= new DevMediaSection($this, 'developer/media');
     }
 
     public function get(string $path, array $query = [], array $headers = []): string|array

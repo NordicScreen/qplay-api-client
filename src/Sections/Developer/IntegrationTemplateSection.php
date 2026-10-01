@@ -47,7 +47,7 @@ class IntegrationTemplateSection extends AbstractSection
     }
 
     /**
-     * Update an existing integration template by id (PATCH).
+     * Update an existing integration template by id (PUT).
      *
      * @param int|string $id Template identifier
      * @param array $data Fields to update
@@ -55,8 +55,7 @@ class IntegrationTemplateSection extends AbstractSection
      */
     public function update(int|string $id, array $data): string|array
     {
-        // Always PATCH
-        return $this->patch((string)$id, $data);
+        return $this->put((string)$id, $data);
     }
 
     /**
@@ -101,13 +100,13 @@ class IntegrationTemplateSection extends AbstractSection
      * @param array $data Version payload
      * @return string|array API response
      */
-    public function createVersion(int|string $templateId, array $data)
+    public function createVersion(int|string $templateId, array $data): string|array
     {
         return $this->post($templateId . '/version', $data);
     }
 
     /**
-     * Update a version (PATCH).
+     * Update a version (PUT).
      *
      * @param int|string $templateId Template identifier
      * @param int|string $versionId Version identifier
@@ -116,7 +115,7 @@ class IntegrationTemplateSection extends AbstractSection
      */
     public function updateVersion(int|string $templateId, int|string $versionId, array $data): string|array
     {
-        return $this->patch($templateId . '/version/' . $versionId, $data);
+        return $this->put($templateId . '/version/' . $versionId, $data);
     }
 
     /**
@@ -171,7 +170,7 @@ class IntegrationTemplateSection extends AbstractSection
     }
 
     /**
-     * Update a script (PATCH).
+     * Update a script (PUT).
      *
      * @param int|string $templateId Template identifier
      * @param int|string $versionId Version identifier
@@ -185,7 +184,7 @@ class IntegrationTemplateSection extends AbstractSection
         int|string $identifier,
         array $data
     ): string|array {
-        return $this->patch($templateId . '/version/' . $versionId . '/script/' . $identifier, $data);
+        return $this->put($templateId . '/version/' . $versionId . '/script/' . $identifier, $data);
     }
 
     /**
