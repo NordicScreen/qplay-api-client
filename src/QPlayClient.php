@@ -12,11 +12,13 @@ use QPlay\Api\Client\Sections\AppTemplateSection;
 use QPlay\Api\Client\Sections\Developer\AppSection as DevAppSection;
 use QPlay\Api\Client\Sections\Developer\AppTemplateSection as DevAppTemplateSection;
 use QPlay\Api\Client\Sections\Developer\IntegrationTemplateSection as DevIntegrationTemplateSection;
+use QPlay\Api\Client\Sections\Developer\MediaSection as DevMediaSection;
 use QPlay\Api\Client\Sections\EventsSection;
 use QPlay\Api\Client\Sections\IntegrationSection;
 use QPlay\Api\Client\Sections\IntegrationTemplateSection;
 use QPlay\Api\Client\Sections\MediaLibrarySection;
 use QPlay\Api\Client\Sections\PlayersSection;
+use QPlay\Api\Client\Sections\PlaylistSection;
 use QPlay\Api\Client\Sections\PresentationsSection;
 use QPlay\Api\Client\Sections\ServerSection;
 use QPlay\Api\Client\Sections\SystemSection;
@@ -79,11 +81,19 @@ class QPlayClient
     }
 
     /**
-     * Presentations API (/presentations)
+     * Presentations API (/presentation)
      */
     public function presentations(): PresentationsSection
     {
         return $this->core->presentations();
+    }
+
+    /**
+     * Playlist API (/playlist)
+     */
+    public function playlist(): PlaylistSection
+    {
+        return $this->core->playlist();
     }
 
     /**
@@ -111,7 +121,7 @@ class QPlayClient
     }
 
     /**
-     * Apps section accessor (/apps) — read-only
+     * Apps section accessor (/app) — read-only
      */
     public function app(): AppSection
     {
@@ -119,7 +129,7 @@ class QPlayClient
     }
 
     /**
-     * App Template section accessor (/app-template) — read-only
+     * App Template section accessor (/app-template)
      */
     public function appTemplate(): AppTemplateSection
     {
@@ -127,7 +137,7 @@ class QPlayClient
     }
 
     /**
-     * System API (/system)
+     * System API (/status, /health)
      */
     public function system(): SystemSection
     {
@@ -135,7 +145,7 @@ class QPlayClient
     }
 
     /**
-     * Server API (/server)
+     * Server API (/integration-server)
      */
     public function server(): ServerSection
     {
@@ -143,7 +153,7 @@ class QPlayClient
     }
 
     /**
-     * Developer Apps section accessor (/developer/apps)
+     * Developer Apps section accessor (/developer/app)
      */
     public function developerApp(): DevAppSection
     {
@@ -164,5 +174,13 @@ class QPlayClient
     public function developerIntegrationTemplate(): DevIntegrationTemplateSection
     {
         return $this->core->developerIntegrationTemplate();
+    }
+
+    /**
+     * Developer Media section accessor (/developer/media)
+     */
+    public function developerMedia(): DevMediaSection
+    {
+        return $this->core->developerMedia();
     }
 }

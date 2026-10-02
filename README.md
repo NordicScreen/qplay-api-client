@@ -119,25 +119,115 @@ $api = new QPlayClient(
 
 The high-level `QPlayClient` provides typed accessors for the different API sections:
 
-- `media()` — Media Library API (`/media`)
+- `system()` — System API (`/status`, `/health`)
+- `media()` — Media Library API (`/media/folder`, `/media/font`, `/media/file`)
 - `players()` — Players API (`/players`)
-- `presentations()` — Presentations API (`/presentations`)
+- `presentations()` — Presentations API (`/presentation`)
+- `playlist()` — Playlist API (`/playlist`)
 - `events()` — Events API (`/events`)
 - `integration()` — Integration API (`/integration`)
 - `integrationTemplate()` — Integration Template API (`/integration-template`)
-- `app()` — App section (read-only)
-- `appTemplate()` — App Template section (read-only)
-- `system()` — System API (`/system`)
-- `server()` — Server API (`/server`)
-- `developerApp()` — Developer Apps (`/developer/apps`)
+- `server()` — Integration Server API (`/integration-server`)
+- `app()` — App section (`/app`)
+- `appTemplate()` — App Template section (`/app-template`)
+- `developerApp()` — Developer Apps (`/developer/app`)
 - `developerAppTemplate()` — Developer App Templates (`/developer/app-template`)
 - `developerIntegrationTemplate()` — Developer Integration Templates (`/developer/integration-template`)
+- `developerMedia()` — Developer Media & Icons (`/developer/media`)
+
+### Section Usage Examples
+
+#### System
+```php
+$status = $api->system()->status();
+$health = $api->system()->health();
+```
+
+#### Media Library (Folders, Fonts, Files)
+```php
+// Folders
+$folders = $api->media()->listFolders(['page' => 1]);
+$folder = $api->media()->getFolder(1);
+$newFolder = $api->media()->createFolder(['name' => 'Marketing Assets']);
+$updatedFolder = $api->media()->updateFolder(1, ['name' => 'Brand Assets']);
+$api->media()->deleteFolder(1);
+
+// Fonts
+$fonts = $api->media()->listFonts();
+$fontBinary = $api->media()->downloadFont('font-uuid', 12, 'CustomFont.ttf');
+
+// Files
+$files = $api->media()->listFiles(['folder_id' => 1]);
+$file = $api->media()->getFile('file-uuid-or-id');
+$api->media()->downloadFile('file-uuid-or-id');
+$api->media()->regenerateFile('file-uuid-or-id');
+$api->media()->deleteFile('file-uuid-or-id');
+```
+
+#### Players
+```php
+$players = $api->players()->list();
+$player = $api->players()->getById(10);
+$status = $api->players()->getStatus(10);
+$screenshot = $api->players()->getScreenshot(10);
+$schedule = $api->players()->getBlackscreenSchedule(10);
+$api->players()->update(10, ['name' => 'Lobby Screen']);
+$api->players()->sendCommand(10, ['action' => 'reload']);
+$api->players()->unlinkPresentation(10, $presentationVersionId);
+$api->players()->unlinkEvent(10, $eventId);
+```
+
+#### Presentations & Playlists
+```php
+// Presentations
+$presentations = $api->presentations()->list();
+$presentation = $api->presentations()->getById(5);
+$api->presentations()->update(5, ['title' => 'Updated Presentation']);
+
+// Playlists
+$playlists = $api->playlist()->list();
+$playlist = $api->playlist()->getById(2);
+$api->playlist()->update(2, ['name' => 'Morning Playlist']);
+```
+
+#### Integration Servers
+```php
+$servers = $api->server()->list();
+$server = $api->server()->getById(1);
+$state = $api->server()->getState(1);
+$stats = $api->server()->getStats(1);
+$api->server()->heartbeat(1, ['status' => 'healthy']);
+$api->server()->receiveMessage(1, ['payload' => '...']);
+```
+
+#### Developer APIs
+```php
+// Developer Apps & Versions
+$devApps = $api->developerApp()->list();
+$api->developerApp()->update('my-app', ['title' => 'Updated Title']);
+$api->developerApp()->updateVersion('my-app', 1, 0, ['config' => '...']);
+
+// Developer Media & App Icons
+$media = $api->developerMedia()->getAppMedia('my-app', '1.0.0');
+$api->developerMedia()->uploadAppIcon('my-app', '1.0.0', ['icon' => '...']);
+$api->developerMedia()->removeAppIcon('my-app', '1.0.0');
+```
 
 Each section implements convenience methods where available. For endpoints that are not covered by a helper method, you can use the generic methods:
 
 ```php
 $api->media()->get('custom-path', ['foo' => 'bar']);
 $api->media()->post('custom-path', ['json' => ['key' => 'value']]);
+```
+
+## Running Tests
+
+Automated tests are written with PHPUnit:
+
+```bash
+composer test
+# or
+./vendor/bin/phpunit
 ```
 
 ## Error handling

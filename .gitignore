@@ -1,5 +1,11 @@
+# Dependencies & Testing
+vendor/
+.phpunit.result.cache
+.output.txt
+
 # IDE files
 .vscode/
 .idea/
+.junie/
 *.swp
 *.swo
