@@ -2,9 +2,11 @@
 vendor/
 .phpunit.result.cache
 .output.txt
+composer.lock
 
 # Coverage reports
 clover.xml
+badge-coverage.svg
 coverage/
 build/
 
