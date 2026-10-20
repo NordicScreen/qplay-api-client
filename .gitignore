@@ -3,9 +3,34 @@ vendor/
 .phpunit.result.cache
 .output.txt
 
+# Coverage reports
+clover.xml
+coverage/
+build/
+
+# Build artifacts
+*.log
+*.xml
+!phpunit.xml
+!composer.xml
+
+# Temporary files
+test2.txt
+*.tmp
+*.bak
+*.cache
+
 # IDE files
 .vscode/
 .idea/
 .junie/
 *.swp
 *.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment & secrets
+.env
+.env.local

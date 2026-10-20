@@ -1,7 +1,7 @@
 {
   "name": "nordicscreen/q-play-api-client",
   "type": "library",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "authors": [
     {
@@ -10,7 +10,7 @@
     }
   ],
   "require": {
-    "php": ">=8.3",
+    "php": ">=8.1",
     "psr/cache": "^3.0",
     "guzzlehttp/guzzle": "^7.0"
   },
