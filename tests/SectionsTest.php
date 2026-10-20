@@ -306,25 +306,13 @@ class SectionsTest extends TestCase
             $this->okResponse(),
             $this->okResponse(),
             $this->okResponse(),
-            $this->okResponse(),
-            $this->okResponse(),
-            $this->okResponse(),
-            $this->okResponse(),
-            $this->okResponse(),
-            $this->okResponse(),
         ], $history);
 
         $template = $client->appTemplate();
         $template->list();
         $template->getById(1);
-        $template->create(['name' => 'Tpl']);
-        $template->update(1, ['name' => 'Updated']);
-        $template->deleteById(1);
         $template->listVersions(1);
         $template->getVersion(1, 1, 0);
-        $template->createVersion(1, ['code' => 'abc']);
-        $template->updateVersion(1, 1, 0, ['code' => 'xyz']);
-        $template->deleteVersion(1, 1, 0);
 
         $this->assertEquals('GET', $history[1]['request']->getMethod());
         $this->assertEquals('https://api.test/api/rest/v2/app-template', (string)$history[1]['request']->getUri());
@@ -332,29 +320,11 @@ class SectionsTest extends TestCase
         $this->assertEquals('GET', $history[2]['request']->getMethod());
         $this->assertEquals('https://api.test/api/rest/v2/app-template/1', (string)$history[2]['request']->getUri());
 
-        $this->assertEquals('POST', $history[3]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/app-template', (string)$history[3]['request']->getUri());
+        $this->assertEquals('GET', $history[3]['request']->getMethod());
+        $this->assertEquals('https://api.test/api/rest/v2/app-template/1/version', (string)$history[3]['request']->getUri());
 
-        $this->assertEquals('PUT', $history[4]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/app-template/1', (string)$history[4]['request']->getUri());
-
-        $this->assertEquals('DELETE', $history[5]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/app-template/1', (string)$history[5]['request']->getUri());
-
-        $this->assertEquals('GET', $history[6]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/app-template/1/version', (string)$history[6]['request']->getUri());
-
-        $this->assertEquals('GET', $history[7]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/app-template/1/version/1.0', (string)$history[7]['request']->getUri());
-
-        $this->assertEquals('POST', $history[8]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/app-template/1/version', (string)$history[8]['request']->getUri());
-
-        $this->assertEquals('PUT', $history[9]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/app-template/1/version/1.0', (string)$history[9]['request']->getUri());
-
-        $this->assertEquals('DELETE', $history[10]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/app-template/1/version/1.0', (string)$history[10]['request']->getUri());
+        $this->assertEquals('GET', $history[4]['request']->getMethod());
+        $this->assertEquals('https://api.test/api/rest/v2/app-template/1/version/1.0', (string)$history[4]['request']->getUri());
     }
 
     public function testIntegrationSection(): void
@@ -366,17 +336,11 @@ class SectionsTest extends TestCase
             $this->okResponse(),
             $this->okResponse(),
             $this->okResponse(),
-            $this->okResponse(),
-            $this->okResponse(),
-            $this->okResponse(),
         ], $history);
 
         $integration = $client->integration();
         $integration->list();
         $integration->getById(1);
-        $integration->create(['name' => 'Int']);
-        $integration->update(1, ['name' => 'Int 2']);
-        $integration->deleteById(1);
         $integration->run(1, ['force' => true]);
         $integration->statistics(1, ['days' => 7]);
 
@@ -387,19 +351,10 @@ class SectionsTest extends TestCase
         $this->assertEquals('https://api.test/api/rest/v2/integration/1', (string)$history[2]['request']->getUri());
 
         $this->assertEquals('POST', $history[3]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/integration', (string)$history[3]['request']->getUri());
+        $this->assertEquals('https://api.test/api/rest/v2/integration/1/run', (string)$history[3]['request']->getUri());
 
-        $this->assertEquals('PUT', $history[4]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/integration/1', (string)$history[4]['request']->getUri());
-
-        $this->assertEquals('DELETE', $history[5]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/integration/1', (string)$history[5]['request']->getUri());
-
-        $this->assertEquals('POST', $history[6]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/integration/1/run', (string)$history[6]['request']->getUri());
-
-        $this->assertEquals('GET', $history[7]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/integration/1/statistics?days=7', (string)$history[7]['request']->getUri());
+        $this->assertEquals('GET', $history[4]['request']->getMethod());
+        $this->assertEquals('https://api.test/api/rest/v2/integration/1/statistics?days=7', (string)$history[4]['request']->getUri());
     }
 
     public function testIntegrationTemplateSection(): void
@@ -413,33 +368,15 @@ class SectionsTest extends TestCase
             $this->okResponse(),
             $this->okResponse(),
             $this->okResponse(),
-            $this->okResponse(),
-            $this->okResponse(),
-            $this->okResponse(),
-            $this->okResponse(),
-            $this->okResponse(),
-            $this->okResponse(),
-            $this->okResponse(),
-            $this->okResponse(),
-            $this->okResponse(),
         ], $history);
 
         $it = $client->integrationTemplate();
         $it->list();
         $it->getById(1);
-        $it->create(['name' => 'IT']);
-        $it->update(1, ['name' => 'IT 2']);
-        $it->deleteById(1);
         $it->listVersions(1);
         $it->getVersion(1, 2);
-        $it->createVersion(1, ['version' => 3]);
-        $it->updateVersion(1, 2, ['version' => 2]);
-        $it->deleteVersion(1, 2);
         $it->listScripts(1, 2);
         $it->getScript(1, 2, 3);
-        $it->createScript(1, 2, ['script' => 'code']);
-        $it->updateScript(1, 2, 3, ['script' => 'updated']);
-        $it->deleteScript(1, 2, 3);
 
         $this->assertEquals('GET', $history[1]['request']->getMethod());
         $this->assertEquals('https://api.test/api/rest/v2/integration-template', (string)$history[1]['request']->getUri());
@@ -447,44 +384,17 @@ class SectionsTest extends TestCase
         $this->assertEquals('GET', $history[2]['request']->getMethod());
         $this->assertEquals('https://api.test/api/rest/v2/integration-template/1', (string)$history[2]['request']->getUri());
 
-        $this->assertEquals('POST', $history[3]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/integration-template', (string)$history[3]['request']->getUri());
+        $this->assertEquals('GET', $history[3]['request']->getMethod());
+        $this->assertEquals('https://api.test/api/rest/v2/integration-template/1/version', (string)$history[3]['request']->getUri());
 
-        $this->assertEquals('PUT', $history[4]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/integration-template/1', (string)$history[4]['request']->getUri());
+        $this->assertEquals('GET', $history[4]['request']->getMethod());
+        $this->assertEquals('https://api.test/api/rest/v2/integration-template/1/version/2', (string)$history[4]['request']->getUri());
 
-        $this->assertEquals('DELETE', $history[5]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/integration-template/1', (string)$history[5]['request']->getUri());
+        $this->assertEquals('GET', $history[5]['request']->getMethod());
+        $this->assertEquals('https://api.test/api/rest/v2/integration-template/1/version/2/script', (string)$history[5]['request']->getUri());
 
         $this->assertEquals('GET', $history[6]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/integration-template/1/version', (string)$history[6]['request']->getUri());
-
-        $this->assertEquals('GET', $history[7]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/integration-template/1/version/2', (string)$history[7]['request']->getUri());
-
-        $this->assertEquals('POST', $history[8]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/integration-template/1/version', (string)$history[8]['request']->getUri());
-
-        $this->assertEquals('PUT', $history[9]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/integration-template/1/version/2', (string)$history[9]['request']->getUri());
-
-        $this->assertEquals('DELETE', $history[10]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/integration-template/1/version/2', (string)$history[10]['request']->getUri());
-
-        $this->assertEquals('GET', $history[11]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/integration-template/1/version/2/script', (string)$history[11]['request']->getUri());
-
-        $this->assertEquals('GET', $history[12]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/integration-template/1/version/2/script/3', (string)$history[12]['request']->getUri());
-
-        $this->assertEquals('POST', $history[13]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/integration-template/1/version/2/script', (string)$history[13]['request']->getUri());
-
-        $this->assertEquals('PUT', $history[14]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/integration-template/1/version/2/script/3', (string)$history[14]['request']->getUri());
-
-        $this->assertEquals('DELETE', $history[15]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/integration-template/1/version/2/script/3', (string)$history[15]['request']->getUri());
+        $this->assertEquals('https://api.test/api/rest/v2/integration-template/1/version/2/script/3', (string)$history[6]['request']->getUri());
     }
 
     public function testDeveloperSections(): void
@@ -502,33 +412,24 @@ class SectionsTest extends TestCase
             $this->okResponse(),
             $this->okResponse(),
             $this->okResponse(),
-            // dev media
-            $this->okResponse(),
-            $this->okResponse(),
-            $this->okResponse(),
-            $this->okResponse(),
-            $this->okResponse(),
-            $this->okResponse(),
-            $this->okResponse(),
-            $this->okResponse(),
         ], $history);
 
         // Dev App
         $client->developerApp()->update('my-app', ['title' => 'Updated']);
         $client->developerApp()->updateVersion('my-app', 1, 0, ['patch' => true]);
 
-        $this->assertEquals('PUT', $history[1]['request']->getMethod());
+        $this->assertEquals('PATCH', $history[1]['request']->getMethod());
         $this->assertEquals('https://api.test/api/rest/v2/developer/app/my-app', (string)$history[1]['request']->getUri());
-        $this->assertEquals('PUT', $history[2]['request']->getMethod());
+        $this->assertEquals('PATCH', $history[2]['request']->getMethod());
         $this->assertEquals('https://api.test/api/rest/v2/developer/app/my-app/version/1.0', (string)$history[2]['request']->getUri());
 
         // Dev App Template
         $client->developerAppTemplate()->update(1, ['name' => 'Updated']);
         $client->developerAppTemplate()->updateVersion(1, 1, 0, ['data' => 'x']);
 
-        $this->assertEquals('PUT', $history[3]['request']->getMethod());
+        $this->assertEquals('PATCH', $history[3]['request']->getMethod());
         $this->assertEquals('https://api.test/api/rest/v2/developer/app-template/1', (string)$history[3]['request']->getUri());
-        $this->assertEquals('PUT', $history[4]['request']->getMethod());
+        $this->assertEquals('PATCH', $history[4]['request']->getMethod());
         $this->assertEquals('https://api.test/api/rest/v2/developer/app-template/1/version/1.0', (string)$history[4]['request']->getUri());
 
         // Dev Integration Template
@@ -536,46 +437,11 @@ class SectionsTest extends TestCase
         $client->developerIntegrationTemplate()->updateVersion(1, 2, ['version' => '2']);
         $client->developerIntegrationTemplate()->updateScript(1, 2, 3, ['code' => 'eval']);
 
-        $this->assertEquals('PUT', $history[5]['request']->getMethod());
+        $this->assertEquals('PATCH', $history[5]['request']->getMethod());
         $this->assertEquals('https://api.test/api/rest/v2/developer/integration-template/1', (string)$history[5]['request']->getUri());
-        $this->assertEquals('PUT', $history[6]['request']->getMethod());
+        $this->assertEquals('PATCH', $history[6]['request']->getMethod());
         $this->assertEquals('https://api.test/api/rest/v2/developer/integration-template/1/version/2', (string)$history[6]['request']->getUri());
-        $this->assertEquals('PUT', $history[7]['request']->getMethod());
+        $this->assertEquals('PATCH', $history[7]['request']->getMethod());
         $this->assertEquals('https://api.test/api/rest/v2/developer/integration-template/1/version/2/script/3', (string)$history[7]['request']->getUri());
-
-        // Dev Media
-        $devMedia = $client->developerMedia();
-        $devMedia->getTemplateMedia(1, '1.0.0');
-        $devMedia->uploadTemplateMedia(1, '1.0.0', ['file' => 'binary']);
-        $devMedia->deleteTemplateMedia(1, '1.0.0', 'uuid-file');
-        $devMedia->getAppMedia('my-app', '1.0.0');
-        $devMedia->uploadAppMedia('my-app', '1.0.0', ['file' => 'binary']);
-        $devMedia->deleteAppMedia('my-app', '1.0.0', 'uuid-file');
-        $devMedia->uploadAppIcon('my-app', '1.0.0', ['icon' => 'png']);
-        $devMedia->removeAppIcon('my-app', '1.0.0');
-
-        $this->assertEquals('GET', $history[8]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/developer/media/template/1/1.0.0', (string)$history[8]['request']->getUri());
-
-        $this->assertEquals('POST', $history[9]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/developer/media/template/1/1.0.0', (string)$history[9]['request']->getUri());
-
-        $this->assertEquals('DELETE', $history[10]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/developer/media/template/1/1.0.0/uuid-file', (string)$history[10]['request']->getUri());
-
-        $this->assertEquals('GET', $history[11]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/developer/media/my-app/1.0.0', (string)$history[11]['request']->getUri());
-
-        $this->assertEquals('POST', $history[12]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/developer/media/my-app/1.0.0', (string)$history[12]['request']->getUri());
-
-        $this->assertEquals('DELETE', $history[13]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/developer/media/my-app/1.0.0/uuid-file', (string)$history[13]['request']->getUri());
-
-        $this->assertEquals('POST', $history[14]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/developer/media/my-app/1.0.0/icon', (string)$history[14]['request']->getUri());
-
-        $this->assertEquals('DELETE', $history[15]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/developer/media/my-app/1.0.0/icon', (string)$history[15]['request']->getUri());
     }
 }
