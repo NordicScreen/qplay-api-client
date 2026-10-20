@@ -30,7 +30,7 @@ class AppSection extends AbstractSection
      */
     public function getById(string $id): string|array
     {
-        return $this->get((string)$id);
+        return $this->get($id);
     }
 
     /**
