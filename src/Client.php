@@ -22,13 +22,14 @@ use QPlay\Api\Client\Sections\AppTemplateSection;
 use QPlay\Api\Client\Sections\Developer\AppSection as DevAppSection;
 use QPlay\Api\Client\Sections\Developer\AppTemplateSection as DevAppTemplateSection;
 use QPlay\Api\Client\Sections\Developer\IntegrationTemplateSection as DevIntegrationTemplateSection;
-use QPlay\Api\Client\Sections\EventsSection;
+use QPlay\Api\Client\Sections\Developer\AppMediaSection as DevAppMediaSection;
+use QPlay\Api\Client\Sections\Developer\AppTemplateMediaSection as DevAppTemplateMediaSection;
 use QPlay\Api\Client\Sections\IntegrationSection;
 use QPlay\Api\Client\Sections\IntegrationTemplateSection;
 use QPlay\Api\Client\Sections\MediaLibrarySection;
 use QPlay\Api\Client\Sections\PlayersSection;
+use QPlay\Api\Client\Sections\PlaylistSection;
 use QPlay\Api\Client\Sections\PresentationsSection;
-use QPlay\Api\Client\Sections\ServerSection;
 use QPlay\Api\Client\Sections\SystemSection;
 use Throwable;
 
@@ -53,7 +54,7 @@ class Client
     private ?MediaLibrarySection $media = null;
     private ?PlayersSection $players = null;
     private ?PresentationsSection $presentations = null;
-    private ?EventsSection $events = null;
+    private ?PlaylistSection $playlist = null;
     private ?IntegrationSection $integration = null;
     private ?IntegrationTemplateSection $integrationTemplate = null;
     private ?AppSection $app = null;
@@ -61,8 +62,9 @@ class Client
     private ?DevIntegrationTemplateSection $developerIntegrationTemplate = null;
     private ?DevAppSection $developerApp = null;
     private ?DevAppTemplateSection $developerAppTemplate = null;
+    private ?DevAppMediaSection $developerAppMedia = null;
+    private ?DevAppTemplateMediaSection $developerAppTemplateMedia = null;
     private ?SystemSection $system = null;
-    private ?ServerSection $server = null;
     private ?string $token = null;
     private ?int $tokenExpiresAt = null;
     private ?CacheItemInterface $tokenCacheItem = null;
@@ -101,19 +103,19 @@ class Client
     }
 
     /**
-     * Presentations API (/presentations)
+     * Presentations API (/presentation)
      */
     public function presentations(): PresentationsSection
     {
-        return $this->presentations ??= new PresentationsSection($this, 'presentations');
+        return $this->presentations ??= new PresentationsSection($this, 'presentation');
     }
 
     /**
-     * Events API (/events)
+     * Playlist API (/playlist)
      */
-    public function events(): EventsSection
+    public function playlist(): PlaylistSection
     {
-        return $this->events ??= new EventsSection($this, 'events');
+        return $this->playlist ??= new PlaylistSection($this, 'playlist');
     }
 
     /**
@@ -133,15 +135,15 @@ class Client
     }
 
     /**
-     * App API (/apps) — read-only
+     * App API (/app) — read-only
      */
     public function app(): AppSection
     {
-        return $this->app ??= new AppSection($this, 'apps');
+        return $this->app ??= new AppSection($this, 'app');
     }
 
     /**
-     * App Template API (/app-template) — read-only
+     * App Template API (/app-template)
      */
     public function appTemplate(): AppTemplateSection
     {
@@ -149,28 +151,20 @@ class Client
     }
 
     /**
-     * System API (/system)
+     * System API (/status, /health)
      */
     public function system(): SystemSection
     {
-        return $this->system ??= new SystemSection($this, 'system');
+        return $this->system ??= new SystemSection($this, '');
     }
 
     /**
-     * Server API (/server)
-     */
-    public function server(): ServerSection
-    {
-        return $this->server ??= new ServerSection($this, 'server');
-    }
-
-    /**
-     * Developer App API (/developer/apps)
+     * Developer App API (/developer/app)
      */
     public function developerApp(): DevAppSection
     {
         return $this->developerApp
-            ??= new DevAppSection($this, 'developer/apps');
+            ??= new DevAppSection($this, 'developer/app');
     }
 
     /**
@@ -189,6 +183,24 @@ class Client
     {
         return $this->developerIntegrationTemplate
             ??= new DevIntegrationTemplateSection($this, 'developer/integration-template');
+    }
+
+    /**
+     * Developer App Media API (/developer/app)
+     */
+    public function developerAppMedia(): DevAppMediaSection
+    {
+        return $this->developerAppMedia
+            ??= new DevAppMediaSection($this, 'developer/app');
+    }
+
+    /**
+     * Developer App Template Media API (/developer/app-template)
+     */
+    public function developerAppTemplateMedia(): DevAppTemplateMediaSection
+    {
+        return $this->developerAppTemplateMedia
+            ??= new DevAppTemplateMediaSection($this, 'developer/app-template');
     }
 
     public function get(string $path, array $query = [], array $headers = []): string|array

@@ -34,45 +34,12 @@ class IntegrationSection extends AbstractSection
     }
 
     /**
-     * Create a new integration.
-     *
-     * @param array $data Integration payload
-     * @return string|array API response
-     */
-    public function create(array $data): string|array
-    {
-        return $this->post('', $data);
-    }
-
-    /**
-     * Update an existing integration.
-     *
-     * @param int|string $id Integration identifier
-     * @param array $data Fields to update
-     * @return string|array API response
-     */
-    public function update(int|string $id, array $data): string|array
-    {
-        return $this->put((string)$id, $data);
-    }
-
-    /**
-     * Delete an integration by id.
-     *
-     * @param int|string $id Integration identifier
-     * @return string|array API response
-     */
-    public function deleteById(int|string $id): string|array
-    {
-        return $this->delete((string)$id);
-    }
-
-    /**
      * Trigger a run for an integration.
      *
      * @param int|string $id Integration identifier
      * @param array $payload Optional payload for the run
      * @return string|array API response
+     * @deprecated The `/integration/{id}/run` endpoint is not defined in the API spec.
      */
     public function run(int|string $id, array $payload = []): string|array
     {
@@ -85,6 +52,7 @@ class IntegrationSection extends AbstractSection
      * @param int|string $id Integration identifier
      * @param array $query Optional query parameters (e.g. date ranges)
      * @return string|array API response
+     * @deprecated The `/integration/{id}/statistics` endpoint is not defined in the API spec.
      */
     public function statistics(int|string $id, array $query = []): string|array
     {

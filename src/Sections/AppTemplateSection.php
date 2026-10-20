@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace QPlay\Api\Client\Sections;
 
 /**
- * App template section with basic CRUD and version helpers.
+ * App template section with CRUD and version helpers.
  *
  * @namespace QPlay\Api\Client\Sections
  */
@@ -50,11 +50,15 @@ class AppTemplateSection extends AbstractSection
      *
      * @param int|string $templateId Template identifier
      * @param int|string $version Major version
-     * @param int|string $patchVersion Patch version
+     * @param int|string|null $patchVersion Patch version (optional if version contains full semver)
      * @return string|array API response
      */
-    public function getVersion(int|string $templateId, int|string $version, int|string $patchVersion): string|array
-    {
-        return $this->get($templateId . '/version/' . $version . '.' . $patchVersion);
+    public function getVersion(
+        int|string $templateId,
+        int|string $version,
+        int|string|null $patchVersion = null
+    ): string|array {
+        $versionStr = $patchVersion !== null ? $version . '.' . $patchVersion : (string)$version;
+        return $this->get($templateId . '/version/' . $versionStr);
     }
 }
