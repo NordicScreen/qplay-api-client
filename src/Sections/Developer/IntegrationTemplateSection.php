@@ -55,7 +55,6 @@ class IntegrationTemplateSection extends AbstractSection
      */
     public function update(int|string $id, array $data): string|array
     {
-        // Always PATCH
         return $this->patch((string)$id, $data);
     }
 
@@ -101,7 +100,7 @@ class IntegrationTemplateSection extends AbstractSection
      * @param array $data Version payload
      * @return string|array API response
      */
-    public function createVersion(int|string $templateId, array $data)
+    public function createVersion(int|string $templateId, array $data): string|array
     {
         return $this->post($templateId . '/version', $data);
     }

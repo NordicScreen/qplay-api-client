@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace QPlay\Api\Client\Sections;
 
 /**
- * Event section with basic CRUD and version helpers.
+ * Playlist section with CRUD operations.
  *
  * @namespace QPlay\Api\Client\Sections
  */
-class EventsSection extends AbstractSection
+class PlaylistSection extends AbstractSection
 {
     /**
-     * List events.
+     * List playlists.
      *
      * @param array $query Optional query parameters (e.g. filters, pagination)
      * @return string|array API response
@@ -23,9 +23,9 @@ class EventsSection extends AbstractSection
     }
 
     /**
-     * Get an event by id.
+     * Get a playlist by id.
      *
-     * @param int|string $id Event identifier
+     * @param int|string $id Playlist identifier
      * @return string|array API response
      */
     public function getById(int|string $id): string|array
@@ -34,9 +34,9 @@ class EventsSection extends AbstractSection
     }
 
     /**
-     * Create an event.
+     * Create a playlist.
      *
-     * @param array $data Event payload
+     * @param array $data Playlist payload
      * @return string|array API response
      */
     public function create(array $data): string|array
@@ -45,21 +45,21 @@ class EventsSection extends AbstractSection
     }
 
     /**
-     * Update an event.
+     * Update a playlist (PATCH).
      *
-     * @param int|string $id Event identifier
+     * @param int|string $id Playlist identifier
      * @param array $data Fields to update
      * @return string|array API response
      */
     public function update(int|string $id, array $data): string|array
     {
-        return $this->put((string)$id, $data);
+        return $this->patch((string)$id, $data);
     }
 
     /**
-     * Delete an event by id.
+     * Delete a playlist by id.
      *
-     * @param int|string $id Event identifier
+     * @param int|string $id Playlist identifier
      * @return string|array API response
      */
     public function deleteById(int|string $id): string|array
