@@ -55,7 +55,7 @@ class AppSection extends AbstractSection
      */
     public function update(int|string $id, array $data): string|array
     {
-        return $this->put((string)$id, $data);
+        return $this->patch((string)$id, $data);
     }
 
     /**
@@ -123,9 +123,9 @@ class AppSection extends AbstractSection
         array $data = []
     ): string|array {
         if (is_array($patchVersion)) {
-            return $this->put($appId . '/version/' . $version, $patchVersion);
+            return $this->patch($appId . '/version/' . $version, $patchVersion);
         }
-        return $this->put($appId . '/version/' . $version . '.' . $patchVersion, $data);
+        return $this->patch($appId . '/version/' . $version . '.' . $patchVersion, $data);
     }
 
     /**

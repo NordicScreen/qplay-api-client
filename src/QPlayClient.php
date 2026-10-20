@@ -12,15 +12,14 @@ use QPlay\Api\Client\Sections\AppTemplateSection;
 use QPlay\Api\Client\Sections\Developer\AppSection as DevAppSection;
 use QPlay\Api\Client\Sections\Developer\AppTemplateSection as DevAppTemplateSection;
 use QPlay\Api\Client\Sections\Developer\IntegrationTemplateSection as DevIntegrationTemplateSection;
-use QPlay\Api\Client\Sections\Developer\MediaSection as DevMediaSection;
-use QPlay\Api\Client\Sections\EventsSection;
+use QPlay\Api\Client\Sections\Developer\AppMediaSection as DevAppMediaSection;
+use QPlay\Api\Client\Sections\Developer\AppTemplateMediaSection as DevAppTemplateMediaSection;
 use QPlay\Api\Client\Sections\IntegrationSection;
 use QPlay\Api\Client\Sections\IntegrationTemplateSection;
 use QPlay\Api\Client\Sections\MediaLibrarySection;
 use QPlay\Api\Client\Sections\PlayersSection;
 use QPlay\Api\Client\Sections\PlaylistSection;
 use QPlay\Api\Client\Sections\PresentationsSection;
-use QPlay\Api\Client\Sections\ServerSection;
 use QPlay\Api\Client\Sections\SystemSection;
 
 /**
@@ -97,14 +96,6 @@ class QPlayClient
     }
 
     /**
-     * Events API (/events)
-     */
-    public function events(): EventsSection
-    {
-        return $this->core->events();
-    }
-
-    /**
      * Integration API (/integration)
      */
     public function integration(): IntegrationSection
@@ -145,14 +136,6 @@ class QPlayClient
     }
 
     /**
-     * Server API (/integration-server)
-     */
-    public function server(): ServerSection
-    {
-        return $this->core->server();
-    }
-
-    /**
      * Developer Apps section accessor (/developer/app)
      */
     public function developerApp(): DevAppSection
@@ -177,10 +160,18 @@ class QPlayClient
     }
 
     /**
-     * Developer Media section accessor (/developer/media)
+     * Developer App Media section accessor (/developer/app)
      */
-    public function developerMedia(): DevMediaSection
+    public function developerAppMedia(): DevAppMediaSection
     {
-        return $this->core->developerMedia();
+        return $this->core->developerAppMedia();
+    }
+
+    /**
+     * Developer App Template Media section accessor (/developer/app-template)
+     */
+    public function developerAppTemplateMedia(): DevAppTemplateMediaSection
+    {
+        return $this->core->developerAppTemplateMedia();
     }
 }

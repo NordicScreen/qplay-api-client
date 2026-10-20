@@ -16,15 +16,14 @@ use QPlay\Api\Client\Sections\AppTemplateSection;
 use QPlay\Api\Client\Sections\Developer\AppSection as DevAppSection;
 use QPlay\Api\Client\Sections\Developer\AppTemplateSection as DevAppTemplateSection;
 use QPlay\Api\Client\Sections\Developer\IntegrationTemplateSection as DevIntegrationTemplateSection;
-use QPlay\Api\Client\Sections\Developer\MediaSection as DevMediaSection;
-use QPlay\Api\Client\Sections\EventsSection;
+use QPlay\Api\Client\Sections\Developer\AppMediaSection as DevAppMediaSection;
+use QPlay\Api\Client\Sections\Developer\AppTemplateMediaSection as DevAppTemplateMediaSection;
 use QPlay\Api\Client\Sections\IntegrationSection;
 use QPlay\Api\Client\Sections\IntegrationTemplateSection;
 use QPlay\Api\Client\Sections\MediaLibrarySection;
 use QPlay\Api\Client\Sections\PlayersSection;
 use QPlay\Api\Client\Sections\PlaylistSection;
 use QPlay\Api\Client\Sections\PresentationsSection;
-use QPlay\Api\Client\Sections\ServerSection;
 use QPlay\Api\Client\Sections\SystemSection;
 
 class QPlayClientTest extends TestCase
@@ -51,17 +50,16 @@ class QPlayClientTest extends TestCase
         $this->assertInstanceOf(PlayersSection::class, $api->players());
         $this->assertInstanceOf(PresentationsSection::class, $api->presentations());
         $this->assertInstanceOf(PlaylistSection::class, $api->playlist());
-        $this->assertInstanceOf(EventsSection::class, $api->events());
         $this->assertInstanceOf(IntegrationSection::class, $api->integration());
         $this->assertInstanceOf(IntegrationTemplateSection::class, $api->integrationTemplate());
         $this->assertInstanceOf(AppSection::class, $api->app());
         $this->assertInstanceOf(AppTemplateSection::class, $api->appTemplate());
         $this->assertInstanceOf(SystemSection::class, $api->system());
-        $this->assertInstanceOf(ServerSection::class, $api->server());
         $this->assertInstanceOf(DevAppSection::class, $api->developerApp());
         $this->assertInstanceOf(DevAppTemplateSection::class, $api->developerAppTemplate());
         $this->assertInstanceOf(DevIntegrationTemplateSection::class, $api->developerIntegrationTemplate());
-        $this->assertInstanceOf(DevMediaSection::class, $api->developerMedia());
+        $this->assertInstanceOf(DevAppMediaSection::class, $api->developerAppMedia());
+        $this->assertInstanceOf(DevAppTemplateMediaSection::class, $api->developerAppTemplateMedia());
 
         $this->assertEquals(['status' => 'ok'], $api->system()->health());
         $this->assertEquals('https://api.test/api/rest/v2/health', (string)$history[1]['request']->getUri());

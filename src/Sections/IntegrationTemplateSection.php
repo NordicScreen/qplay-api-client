@@ -34,40 +34,6 @@ class IntegrationTemplateSection extends AbstractSection
     }
 
     /**
-     * Create an integration template.
-     *
-     * @param array $data Template payload
-     * @return string|array API response
-     */
-    public function create(array $data): string|array
-    {
-        return $this->post('', $data);
-    }
-
-    /**
-     * Update an integration template (PUT).
-     *
-     * @param int|string $id Template identifier
-     * @param array $data Fields to update
-     * @return string|array API response
-     */
-    public function update(int|string $id, array $data): string|array
-    {
-        return $this->put((string)$id, $data);
-    }
-
-    /**
-     * Delete an integration template by id.
-     *
-     * @param int|string $id Template identifier
-     * @return string|array API response
-     */
-    public function deleteById(int|string $id): string|array
-    {
-        return $this->delete((string)$id);
-    }
-
-    /**
      * List versions for a given integration template.
      *
      * @param int|string $templateId Template identifier
@@ -89,43 +55,6 @@ class IntegrationTemplateSection extends AbstractSection
     public function getVersion(int|string $templateId, int|string $versionId): string|array
     {
         return $this->get($templateId . '/version/' . $versionId);
-    }
-
-    /**
-     * Create a version under an integration template.
-     *
-     * @param int|string $templateId Template identifier
-     * @param array $data Version payload
-     * @return string|array API response
-     */
-    public function createVersion(int|string $templateId, array $data): string|array
-    {
-        return $this->post($templateId . '/version', $data);
-    }
-
-    /**
-     * Update a version (PUT).
-     *
-     * @param int|string $templateId Template identifier
-     * @param int|string $versionId Version identifier
-     * @param array $data Fields to update
-     * @return string|array API response
-     */
-    public function updateVersion(int|string $templateId, int|string $versionId, array $data): string|array
-    {
-        return $this->put($templateId . '/version/' . $versionId, $data);
-    }
-
-    /**
-     * Delete a version.
-     *
-     * @param int|string $templateId Template identifier
-     * @param int|string $versionId Version identifier
-     * @return string|array API response
-     */
-    public function deleteVersion(int|string $templateId, int|string $versionId): string|array
-    {
-        return $this->delete($templateId . '/version/' . $versionId);
     }
 
     /**
@@ -152,49 +81,5 @@ class IntegrationTemplateSection extends AbstractSection
     public function getScript(int|string $templateId, int|string $versionId, int|string $identifier): string|array
     {
         return $this->get($templateId . '/version/' . $versionId . '/script/' . $identifier);
-    }
-
-    /**
-     * Create a script for a template version.
-     *
-     * @param int|string $templateId Template identifier
-     * @param int|string $versionId Version identifier
-     * @param array $data Script payload
-     * @return string|array API response
-     */
-    public function createScript(int|string $templateId, int|string $versionId, array $data): string|array
-    {
-        return $this->post($templateId . '/version/' . $versionId . '/script', $data);
-    }
-
-    /**
-     * Update a script (PUT).
-     *
-     * @param int|string $templateId Template identifier
-     * @param int|string $versionId Version identifier
-     * @param int|string $identifier Script identifier
-     * @param array $data Fields to update
-     * @return string|array API response
-     */
-    public function updateScript(
-        int|string $templateId,
-        int|string $versionId,
-        int|string $identifier,
-        array $data
-    ): string|array {
-        return $this->put($templateId . '/version/' . $versionId . '/script/' . $identifier, $data);
-    }
-
-    /**
-     * Delete a script.
-     *
-     * @param int|string $templateId Template identifier
-     * @param int|string $versionId Version identifier
-     * @param int|string $identifier Script identifier
-     * @return string|array API response
-     */
-    public function deleteScript(int|string $templateId, int|string $versionId, int|string $identifier): string|array
-    {
-        return $this->delete($templateId . '/version/' . $versionId . '/script/' . $identifier);
     }
 }

@@ -36,7 +36,7 @@ class AppTemplateSection extends AbstractSection
 
     public function update(int|string $id, array $data): string|array
     {
-        return $this->put((string)$id, $data);
+        return $this->patch((string)$id, $data);
     }
 
     public function deleteById(int|string $id): string|array
@@ -76,9 +76,9 @@ class AppTemplateSection extends AbstractSection
         array $data = []
     ): string|array {
         if (is_array($patchVersion)) {
-            return $this->put($templateId . '/version/' . $version, $patchVersion);
+            return $this->patch($templateId . '/version/' . $version, $patchVersion);
         }
-        return $this->put($templateId . '/version/' . $version . '.' . $patchVersion, $data);
+        return $this->patch($templateId . '/version/' . $version . '.' . $patchVersion, $data);
     }
 
     public function deleteVersion(

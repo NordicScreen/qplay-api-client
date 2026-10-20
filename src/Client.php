@@ -22,15 +22,14 @@ use QPlay\Api\Client\Sections\AppTemplateSection;
 use QPlay\Api\Client\Sections\Developer\AppSection as DevAppSection;
 use QPlay\Api\Client\Sections\Developer\AppTemplateSection as DevAppTemplateSection;
 use QPlay\Api\Client\Sections\Developer\IntegrationTemplateSection as DevIntegrationTemplateSection;
-use QPlay\Api\Client\Sections\Developer\MediaSection as DevMediaSection;
-use QPlay\Api\Client\Sections\EventsSection;
+use QPlay\Api\Client\Sections\Developer\AppMediaSection as DevAppMediaSection;
+use QPlay\Api\Client\Sections\Developer\AppTemplateMediaSection as DevAppTemplateMediaSection;
 use QPlay\Api\Client\Sections\IntegrationSection;
 use QPlay\Api\Client\Sections\IntegrationTemplateSection;
 use QPlay\Api\Client\Sections\MediaLibrarySection;
 use QPlay\Api\Client\Sections\PlayersSection;
 use QPlay\Api\Client\Sections\PlaylistSection;
 use QPlay\Api\Client\Sections\PresentationsSection;
-use QPlay\Api\Client\Sections\ServerSection;
 use QPlay\Api\Client\Sections\SystemSection;
 use Throwable;
 
@@ -56,7 +55,6 @@ class Client
     private ?PlayersSection $players = null;
     private ?PresentationsSection $presentations = null;
     private ?PlaylistSection $playlist = null;
-    private ?EventsSection $events = null;
     private ?IntegrationSection $integration = null;
     private ?IntegrationTemplateSection $integrationTemplate = null;
     private ?AppSection $app = null;
@@ -64,9 +62,9 @@ class Client
     private ?DevIntegrationTemplateSection $developerIntegrationTemplate = null;
     private ?DevAppSection $developerApp = null;
     private ?DevAppTemplateSection $developerAppTemplate = null;
-    private ?DevMediaSection $developerMedia = null;
+    private ?DevAppMediaSection $developerAppMedia = null;
+    private ?DevAppTemplateMediaSection $developerAppTemplateMedia = null;
     private ?SystemSection $system = null;
-    private ?ServerSection $server = null;
     private ?string $token = null;
     private ?int $tokenExpiresAt = null;
     private ?CacheItemInterface $tokenCacheItem = null;
@@ -121,14 +119,6 @@ class Client
     }
 
     /**
-     * Events API (/events)
-     */
-    public function events(): EventsSection
-    {
-        return $this->events ??= new EventsSection($this, 'events');
-    }
-
-    /**
      * Integration API (/integration)
      */
     public function integration(): IntegrationSection
@@ -169,14 +159,6 @@ class Client
     }
 
     /**
-     * Server API (/integration-server)
-     */
-    public function server(): ServerSection
-    {
-        return $this->server ??= new ServerSection($this, 'integration-server');
-    }
-
-    /**
      * Developer App API (/developer/app)
      */
     public function developerApp(): DevAppSection
@@ -204,12 +186,21 @@ class Client
     }
 
     /**
-     * Developer Media API (/developer/media)
+     * Developer App Media API (/developer/app)
      */
-    public function developerMedia(): DevMediaSection
+    public function developerAppMedia(): DevAppMediaSection
     {
-        return $this->developerMedia
-            ??= new DevMediaSection($this, 'developer/media');
+        return $this->developerAppMedia
+            ??= new DevAppMediaSection($this, 'developer/app');
+    }
+
+    /**
+     * Developer App Template Media API (/developer/app-template)
+     */
+    public function developerAppTemplateMedia(): DevAppTemplateMediaSection
+    {
+        return $this->developerAppTemplateMedia
+            ??= new DevAppTemplateMediaSection($this, 'developer/app-template');
     }
 
     public function get(string $path, array $query = [], array $headers = []): string|array

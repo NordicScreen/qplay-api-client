@@ -47,7 +47,7 @@ class IntegrationTemplateSection extends AbstractSection
     }
 
     /**
-     * Update an existing integration template by id (PUT).
+     * Update an existing integration template by id (PATCH).
      *
      * @param int|string $id Template identifier
      * @param array $data Fields to update
@@ -55,7 +55,7 @@ class IntegrationTemplateSection extends AbstractSection
      */
     public function update(int|string $id, array $data): string|array
     {
-        return $this->put((string)$id, $data);
+        return $this->patch((string)$id, $data);
     }
 
     /**
@@ -106,7 +106,7 @@ class IntegrationTemplateSection extends AbstractSection
     }
 
     /**
-     * Update a version (PUT).
+     * Update a version (PATCH).
      *
      * @param int|string $templateId Template identifier
      * @param int|string $versionId Version identifier
@@ -115,7 +115,7 @@ class IntegrationTemplateSection extends AbstractSection
      */
     public function updateVersion(int|string $templateId, int|string $versionId, array $data): string|array
     {
-        return $this->put($templateId . '/version/' . $versionId, $data);
+        return $this->patch($templateId . '/version/' . $versionId, $data);
     }
 
     /**
@@ -170,7 +170,7 @@ class IntegrationTemplateSection extends AbstractSection
     }
 
     /**
-     * Update a script (PUT).
+     * Update a script (PATCH).
      *
      * @param int|string $templateId Template identifier
      * @param int|string $versionId Version identifier
@@ -184,7 +184,7 @@ class IntegrationTemplateSection extends AbstractSection
         int|string $identifier,
         array $data
     ): string|array {
-        return $this->put($templateId . '/version/' . $versionId . '/script/' . $identifier, $data);
+        return $this->patch($templateId . '/version/' . $versionId . '/script/' . $identifier, $data);
     }
 
     /**

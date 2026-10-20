@@ -487,41 +487,6 @@ class SectionsTest extends TestCase
         $this->assertEquals('https://api.test/api/rest/v2/integration-template/1/version/2/script/3', (string)$history[15]['request']->getUri());
     }
 
-    public function testEventsSection(): void
-    {
-        $history = [];
-        $client = $this->createClient([
-            $this->tokenResponse(),
-            $this->okResponse(),
-            $this->okResponse(),
-            $this->okResponse(),
-            $this->okResponse(),
-            $this->okResponse(),
-        ], $history);
-
-        $events = $client->events();
-        $events->list();
-        $events->getById(1);
-        $events->create(['name' => 'Event']);
-        $events->update(1, ['name' => 'Event 2']);
-        $events->deleteById(1);
-
-        $this->assertEquals('GET', $history[1]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/events', (string)$history[1]['request']->getUri());
-
-        $this->assertEquals('GET', $history[2]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/events/1', (string)$history[2]['request']->getUri());
-
-        $this->assertEquals('POST', $history[3]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/events', (string)$history[3]['request']->getUri());
-
-        $this->assertEquals('PUT', $history[4]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/events/1', (string)$history[4]['request']->getUri());
-
-        $this->assertEquals('DELETE', $history[5]['request']->getMethod());
-        $this->assertEquals('https://api.test/api/rest/v2/events/1', (string)$history[5]['request']->getUri());
-    }
-
     public function testDeveloperSections(): void
     {
         $history = [];
