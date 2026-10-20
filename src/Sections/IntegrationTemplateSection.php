@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace QPlay\Api\Client\Sections;
 
 /**
- * Integration template section with basic CRUD and version helpers.
+ * Integration template section with CRUD, version, and script helpers.
  *
  * @namespace QPlay\Api\Client\Sections
  */
