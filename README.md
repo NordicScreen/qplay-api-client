@@ -1,7 +1,7 @@
 # Q-Play API Client
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Test Coverage](https://raw.githubusercontent.com/nordicscreen/qplay-api-client/kll/nor-2284-general-module-updates/badge-coverage.svg)](https://github.com/nordicscreen/qplay-api-client/actions)
+[![Test Coverage](https://raw.githubusercontent.com/nordicscreen/qplay-api-client/main/badge-coverage.svg)](https://github.com/nordicscreen/qplay-api-client/actions)
 
 A lightweight, framework-agnostic PHP client for the [NordicScreen Q-Play](https://nordicscreen.com) REST API.
 

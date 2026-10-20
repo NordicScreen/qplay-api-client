@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [ main ]
   push:
-    branches: [ main, kll/nor-2284-general-module-updates ]
+    branches: [ main ]
 
 jobs:
   coverage:
@@ -27,7 +27,7 @@ jobs:
         run: ./vendor/bin/phpunit --coverage-clover clover.xml
 
       - name: Generate coverage badge
-        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/kll/nor-2284-general-module-updates')
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: timkrase/phpunit-coverage-badge@v1.2.1
         with:
           coverage_badge_path: 'badge-coverage.svg'
