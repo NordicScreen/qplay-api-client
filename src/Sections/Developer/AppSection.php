@@ -86,13 +86,12 @@ class AppSection extends AbstractSection
      *
      * @param int|string $appId App identifier
      * @param int|string $version Major version
-     * @param int|string|null $patchVersion Patch version (optional if version contains full semver)
+     * @param int|string $patchVersion Patch version
      * @return string|array API response
      */
-    public function getVersion(int|string $appId, int|string $version, int|string|null $patchVersion = null): string|array
+    public function getVersion(int|string $appId, int|string $version, int|string $patchVersion): string|array
     {
-        $versionStr = $patchVersion !== null ? $version . '.' . $patchVersion : (string)$version;
-        return $this->get($appId . '/version/' . $versionStr);
+        return $this->get($appId . '/version/' . $version . '.' . $patchVersion);
     }
 
     /**
@@ -112,19 +111,16 @@ class AppSection extends AbstractSection
      *
      * @param int|string $appId App identifier
      * @param int|string $version Major version
-     * @param int|string|null $patchVersion Patch version (or pass $data as 3rd param if full version string is used)
+     * @param int|string $patchVersion Patch version
      * @param array $data Fields to update
      * @return string|array API response
      */
     public function updateVersion(
         int|string $appId,
         int|string $version,
-        int|string|array $patchVersion,
-        array $data = []
+        int|string $patchVersion,
+        array $data
     ): string|array {
-        if (is_array($patchVersion)) {
-            return $this->patch($appId . '/version/' . $version, $patchVersion);
-        }
         return $this->patch($appId . '/version/' . $version . '.' . $patchVersion, $data);
     }
 
@@ -133,12 +129,11 @@ class AppSection extends AbstractSection
      *
      * @param int|string $appId App identifier
      * @param int|string $version Major version
-     * @param int|string|null $patchVersion Patch version
+     * @param int|string $patchVersion Patch version
      * @return string|array API response
      */
-    public function deleteVersion(int|string $appId, int|string $version, int|string|null $patchVersion = null): string|array
+    public function deleteVersion(int|string $appId, int|string $version, int|string $patchVersion): string|array
     {
-        $versionStr = $patchVersion !== null ? $version . '.' . $patchVersion : (string)$version;
-        return $this->delete($appId . '/version/' . $versionStr);
+        return $this->delete($appId . '/version/' . $version . '.' . $patchVersion);
     }
 }
