@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace QPlay\Api\Client\Sections\Developer;
 
+use QPlay\Api\Client\Exception\ApiException;
 use QPlay\Api\Client\Sections\AbstractSection;
 
 /**
@@ -18,6 +19,7 @@ class IntegrationTemplateSection extends AbstractSection
      *
      * @param array $query Optional query parameters (e.g. filters, pagination)
      * @return string|array API response
+     * @throws ApiException
      */
     public function list(array $query = []): string|array
     {
@@ -29,6 +31,7 @@ class IntegrationTemplateSection extends AbstractSection
      *
      * @param int|string $id Template identifier
      * @return string|array API response
+     * @throws ApiException
      */
     public function getById(int|string $id): string|array
     {
@@ -40,6 +43,7 @@ class IntegrationTemplateSection extends AbstractSection
      *
      * @param array $data Payload for the template to create
      * @return string|array API response
+     * @throws ApiException
      */
     public function create(array $data): string|array
     {
@@ -52,6 +56,7 @@ class IntegrationTemplateSection extends AbstractSection
      * @param int|string $id Template identifier
      * @param array $data Fields to update
      * @return string|array API response
+     * @throws ApiException
      */
     public function update(int|string $id, array $data): string|array
     {
@@ -63,6 +68,7 @@ class IntegrationTemplateSection extends AbstractSection
      *
      * @param int|string $id Template identifier
      * @return string|array API response
+     * @throws ApiException
      */
     public function deleteById(int|string $id): string|array
     {
@@ -75,6 +81,7 @@ class IntegrationTemplateSection extends AbstractSection
      * @param int|string $templateId Template identifier
      * @param array $query Optional query parameters (e.g. filters, pagination)
      * @return string|array API response
+     * @throws ApiException
      */
     public function listVersions(int|string $templateId, array $query = []): string|array
     {
@@ -87,6 +94,7 @@ class IntegrationTemplateSection extends AbstractSection
      * @param int|string $templateId Template identifier
      * @param int|string $versionId Version identifier
      * @return string|array API response
+     * @throws ApiException
      */
     public function getVersion(int|string $templateId, int|string $versionId): string|array
     {
@@ -99,6 +107,7 @@ class IntegrationTemplateSection extends AbstractSection
      * @param int|string $templateId Template identifier
      * @param array $data Version payload
      * @return string|array API response
+     * @throws ApiException
      */
     public function createVersion(int|string $templateId, array $data): string|array
     {
@@ -112,6 +121,7 @@ class IntegrationTemplateSection extends AbstractSection
      * @param int|string $versionId Version identifier
      * @param array $data Fields to update
      * @return string|array API response
+     * @throws ApiException
      */
     public function updateVersion(int|string $templateId, int|string $versionId, array $data): string|array
     {
@@ -124,6 +134,7 @@ class IntegrationTemplateSection extends AbstractSection
      * @param int|string $templateId Template identifier
      * @param int|string $versionId Version identifier
      * @return string|array API response
+     * @throws ApiException
      */
     public function deleteVersion(int|string $templateId, int|string $versionId): string|array
     {
@@ -137,6 +148,7 @@ class IntegrationTemplateSection extends AbstractSection
      * @param int|string $versionId Version identifier
      * @param array $query Optional query parameters (e.g. filters, pagination)
      * @return string|array API response
+     * @throws ApiException
      */
     public function listScripts(int|string $templateId, int|string $versionId, array $query = []): string|array
     {
@@ -150,6 +162,7 @@ class IntegrationTemplateSection extends AbstractSection
      * @param int|string $versionId Version identifier
      * @param array $data Script payload
      * @return string|array API response
+     * @throws ApiException
      */
     public function createScript(int|string $templateId, int|string $versionId, array $data): string|array
     {
@@ -163,6 +176,7 @@ class IntegrationTemplateSection extends AbstractSection
      * @param int|string $versionId Version identifier
      * @param int|string $identifier Script identifier
      * @return string|array API response
+     * @throws ApiException
      */
     public function getScript(int|string $templateId, int|string $versionId, int|string $identifier): string|array
     {
@@ -177,6 +191,7 @@ class IntegrationTemplateSection extends AbstractSection
      * @param int|string $identifier Script identifier
      * @param array $data Fields to update
      * @return string|array API response
+     * @throws ApiException
      */
     public function updateScript(
         int|string $templateId,
@@ -194,6 +209,7 @@ class IntegrationTemplateSection extends AbstractSection
      * @param int|string $versionId Version identifier
      * @param int|string $identifier Script identifier
      * @return string|array API response
+     * @throws ApiException
      */
     public function deleteScript(int|string $templateId, int|string $versionId, int|string $identifier): string|array
     {

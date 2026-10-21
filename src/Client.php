@@ -69,6 +69,16 @@ class Client
     private ?int $tokenExpiresAt = null;
     private ?CacheItemInterface $tokenCacheItem = null;
 
+    /**
+     * Construct a new API client instance.
+     *
+     * @param string $apiEndpoint The base URL of the Q-Play REST API
+     * @param string $clientId OAuth2 client ID
+     * @param string $clientSecret OAuth2 client secret
+     * @param string[] $scopes OAuth2 scopes to request
+     * @param CacheItemInterface|null $tokenCacheItem Optional PSR-6 cache item for token persistence
+     * @param GuzzleHttpClient|null $httpClient Optional custom HTTP client for testing or customization
+     */
     public function __construct(
         string $apiEndpoint,
         string $clientId,
@@ -88,6 +98,8 @@ class Client
 
     /**
      * Media Library API (/media)
+     *
+     * @return MediaLibrarySection The media library section handler
      */
     public function media(): MediaLibrarySection
     {
@@ -96,6 +108,8 @@ class Client
 
     /**
      * Players API (/players)
+     *
+     * @return PlayersSection The players section handler
      */
     public function players(): PlayersSection
     {
@@ -104,6 +118,8 @@ class Client
 
     /**
      * Presentations API (/presentation)
+     *
+     * @return PresentationsSection The presentations section handler
      */
     public function presentations(): PresentationsSection
     {
@@ -112,6 +128,8 @@ class Client
 
     /**
      * Playlist API (/playlist)
+     *
+     * @return PlaylistSection The playlist section handler
      */
     public function playlist(): PlaylistSection
     {
@@ -120,6 +138,8 @@ class Client
 
     /**
      * Integration API (/integration)
+     *
+     * @return IntegrationSection The integration section handler
      */
     public function integration(): IntegrationSection
     {
@@ -128,6 +148,8 @@ class Client
 
     /**
      * Integration Template API (/integration-template)
+     *
+     * @return IntegrationTemplateSection The integration template section handler
      */
     public function integrationTemplate(): IntegrationTemplateSection
     {
@@ -136,6 +158,8 @@ class Client
 
     /**
      * App API (/app) — read-only
+     *
+     * @return AppSection The app section handler
      */
     public function app(): AppSection
     {
@@ -144,6 +168,8 @@ class Client
 
     /**
      * App Template API (/app-template)
+     *
+     * @return AppTemplateSection The app template section handler
      */
     public function appTemplate(): AppTemplateSection
     {
@@ -152,6 +178,8 @@ class Client
 
     /**
      * System API (/status, /health)
+     *
+     * @return SystemSection The system section handler
      */
     public function system(): SystemSection
     {
@@ -160,6 +188,8 @@ class Client
 
     /**
      * Developer App API (/developer/app)
+     *
+     * @return DevAppSection The developer app section handler
      */
     public function developerApp(): DevAppSection
     {
@@ -169,6 +199,8 @@ class Client
 
     /**
      * Developer App Template API (/developer/app-template)
+     *
+     * @return DevAppTemplateSection The developer app template section handler
      */
     public function developerAppTemplate(): DevAppTemplateSection
     {
@@ -178,6 +210,8 @@ class Client
 
     /**
      * Developer Integration Template API (/developer/integration-template)
+     *
+     * @return DevIntegrationTemplateSection The developer integration template section handler
      */
     public function developerIntegrationTemplate(): DevIntegrationTemplateSection
     {
@@ -187,6 +221,8 @@ class Client
 
     /**
      * Developer App Media API (/developer/app)
+     *
+     * @return DevAppMediaSection The developer app media section handler
      */
     public function developerAppMedia(): DevAppMediaSection
     {
@@ -196,6 +232,8 @@ class Client
 
     /**
      * Developer App Template Media API (/developer/app-template)
+     *
+     * @return DevAppTemplateMediaSection The developer app template media section handler
      */
     public function developerAppTemplateMedia(): DevAppTemplateMediaSection
     {
@@ -203,6 +241,15 @@ class Client
             ??= new DevAppTemplateMediaSection($this, 'developer/app-template');
     }
 
+    /**
+     * Send a GET request to the API.
+     *
+     * @param string $path The API endpoint path
+     * @param array $query Query parameters to append to the URL
+     * @param array $headers Additional HTTP headers
+     * @return string|array The decoded JSON response or raw response body
+     * @throws ApiException
+     */
     public function get(string $path, array $query = [], array $headers = []): string|array
     {
         return $this->request('GET', $path, [
@@ -211,6 +258,15 @@ class Client
         ]);
     }
 
+    /**
+     * Send a POST request to the API.
+     *
+     * @param string $path The API endpoint path
+     * @param array $body The request body as an associative array (JSON-encoded)
+     * @param array $headers Additional HTTP headers
+     * @return string|array The decoded JSON response or raw response body
+     * @throws ApiException
+     */
     public function post(string $path, array $body = [], array $headers = []): string|array
     {
         return $this->request('POST', $path, [
@@ -219,6 +275,15 @@ class Client
         ]);
     }
 
+    /**
+     * Send a PUT request to the API.
+     *
+     * @param string $path The API endpoint path
+     * @param array $body The request body as an associative array (JSON-encoded)
+     * @param array $headers Additional HTTP headers
+     * @return string|array The decoded JSON response or raw response body
+     * @throws ApiException
+     */
     public function put(string $path, array $body = [], array $headers = []): string|array
     {
         return $this->request('PUT', $path, [
@@ -227,6 +292,15 @@ class Client
         ]);
     }
 
+    /**
+     * Send a PATCH request to the API.
+     *
+     * @param string $path The API endpoint path
+     * @param array $body The request body as an associative array (JSON-encoded)
+     * @param array $headers Additional HTTP headers
+     * @return string|array The decoded JSON response or raw response body
+     * @throws ApiException
+     */
     public function patch(string $path, array $body = [], array $headers = []): string|array
     {
         return $this->request('PATCH', $path, [
@@ -235,6 +309,15 @@ class Client
         ]);
     }
 
+    /**
+     * Send a DELETE request to the API.
+     *
+     * @param string $path The API endpoint path
+     * @param array $query Query parameters to append to the URL
+     * @param array $headers Additional HTTP headers
+     * @return string|array The decoded JSON response or raw response body
+     * @throws ApiException
+     */
     public function delete(string $path, array $query = [], array $headers = []): string|array
     {
         return $this->request('DELETE', $path, [
@@ -244,8 +327,14 @@ class Client
     }
 
     /**
-     * Core request with unified error handling and OAuth2 bearer
-     * @throws ApiException
+     * Core request with unified error handling and OAuth2 bearer token.
+     *
+     * @param string $method HTTP method (GET, POST, PUT, PATCH, DELETE)
+     * @param string $path The API endpoint path
+     * @param array $options Request options (query, headers, json, body, timeout)
+     * @return string|array The decoded JSON response or raw response body
+     * @throws ApiException On HTTP error responses
+     * @throws ServerErrorException On transport errors
      */
     public function request(string $method, string $path, array $options = []): string|array
     {
@@ -294,6 +383,12 @@ class Client
         }
     }
 
+    /**
+     * Decode error payload from a RequestException response.
+     *
+     * @param RequestException $e The request exception containing the error response
+     * @return array Associative array with 'message', 'details', and optionally 'raw' keys
+     */
     private function decodeError(RequestException $e): array
     {
         $resp = $e->getResponse();
@@ -312,6 +407,14 @@ class Client
         return ['message' => $body ?: 'Request failed'];
     }
 
+    /**
+     * Map an HTTP status code to the appropriate ApiException subclass.
+     *
+     * @param int $status The HTTP status code
+     * @param array $payload The decoded error payload containing message and details
+     * @param Throwable|null $previous The previous exception for chaining
+     * @return ApiException The mapped exception instance
+     */
     private function mapException(int $status, array $payload, ?Throwable $previous): ApiException
     {
         $message = $payload['message'] ?? 'Request failed';
@@ -329,6 +432,12 @@ class Client
         };
     }
 
+    /**
+     * Obtain or refresh the OAuth2 access token.
+     *
+     * @return string The valid access token
+     * @throws UnauthorizedException If token acquisition fails
+     */
     private function getToken(): string
     {
         $now = time();
@@ -406,6 +515,9 @@ class Client
         }
     }
 
+    /**
+     * Clear the cached access token and expiration time.
+     */
     private function clearToken(): void
     {
         $this->token = null;
@@ -421,6 +533,11 @@ class Client
         }
     }
 
+    /**
+     * Get the underlying HTTP client, lazily creating it if needed.
+     *
+     * @return GuzzleHttpClient The HTTP client instance
+     */
     private function http(): GuzzleHttpClient
     {
         if (!$this->httpClient) {

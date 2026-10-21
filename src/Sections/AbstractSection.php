@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace QPlay\Api\Client\Sections;
 
 use QPlay\Api\Client\Client;
+use QPlay\Api\Client\Exception\ApiException;
 
 /**
  * Base helper for namespaced API sections that share a path prefix and delegate to the core Client.
@@ -47,6 +48,7 @@ abstract class AbstractSection
      * @param string $path Optional path relative to the section base
      * @param array $options Request options forwarded to the client (e.g. query, headers, json/body)
      * @return string|array API response
+     * @throws ApiException
      */
     public function request(string $method, string $path = '', array $options = []): string|array
     {
@@ -60,6 +62,7 @@ abstract class AbstractSection
      * @param array $query Query parameters
      * @param array $headers Additional headers
      * @return string|array API response
+     * @throws ApiException
      */
     public function get(string $path = '', array $query = [], array $headers = []): string|array
     {
@@ -73,6 +76,7 @@ abstract class AbstractSection
      * @param array $body Request payload/body
      * @param array $headers Additional headers
      * @return string|array API response
+     * @throws ApiException
      */
     public function post(string $path = '', array $body = [], array $headers = []): string|array
     {
@@ -86,6 +90,7 @@ abstract class AbstractSection
      * @param array $body Request payload/body
      * @param array $headers Additional headers
      * @return string|array API response
+     * @throws ApiException
      */
     public function put(string $path = '', array $body = [], array $headers = []): string|array
     {
@@ -99,6 +104,7 @@ abstract class AbstractSection
      * @param array $body Request payload/body
      * @param array $headers Additional headers
      * @return string|array API response
+     * @throws ApiException
      */
     public function patch(string $path = '', array $body = [], array $headers = []): string|array
     {
@@ -112,6 +118,7 @@ abstract class AbstractSection
      * @param array $query Query parameters
      * @param array $headers Additional headers
      * @return string|array API response
+     * @throws ApiException
      */
     public function delete(string $path = '', array $query = [], array $headers = []): string|array
     {

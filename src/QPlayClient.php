@@ -36,6 +36,13 @@ class QPlayClient
      * Example:
      * $api = new QPlayClient('https://host.tld/api/rest', $id, $secret);
      * $media = $api->media()->list();
+     *
+     * @param string $apiEndpoint The base URL of the Q-Play REST API
+     * @param string $clientId OAuth2 client ID
+     * @param string $clientSecret OAuth2 client secret
+     * @param string[] $scopes OAuth2 scopes to request
+     * @param CacheItemInterface|null $tokenCacheItem Optional PSR-6 cache item for token persistence
+     * @param GuzzleHttpClient|null $httpClient Optional custom HTTP client for testing or customization
      */
     public function __construct(
         string $apiEndpoint,
@@ -57,6 +64,8 @@ class QPlayClient
 
     /**
      * Access to the underlying core client if needed.
+     *
+     * @return CoreClient The core client instance
      */
     public function core(): CoreClient
     {
@@ -65,6 +74,8 @@ class QPlayClient
 
     /**
      * Media Library API (/media)
+     *
+     * @return MediaLibrarySection The media library section handler
      */
     public function media(): MediaLibrarySection
     {
@@ -73,6 +84,8 @@ class QPlayClient
 
     /**
      * Players API (/players)
+     *
+     * @return PlayersSection The players section handler
      */
     public function players(): PlayersSection
     {
@@ -81,6 +94,8 @@ class QPlayClient
 
     /**
      * Presentations API (/presentation)
+     *
+     * @return PresentationsSection The presentations section handler
      */
     public function presentations(): PresentationsSection
     {
@@ -89,6 +104,8 @@ class QPlayClient
 
     /**
      * Playlist API (/playlist)
+     *
+     * @return PlaylistSection The playlist section handler
      */
     public function playlist(): PlaylistSection
     {
@@ -97,6 +114,8 @@ class QPlayClient
 
     /**
      * Integration API (/integration)
+     *
+     * @return IntegrationSection The integration section handler
      */
     public function integration(): IntegrationSection
     {
@@ -105,6 +124,8 @@ class QPlayClient
 
     /**
      * Integration Template API (/integration-template)
+     *
+     * @return IntegrationTemplateSection The integration template section handler
      */
     public function integrationTemplate(): IntegrationTemplateSection
     {
@@ -113,6 +134,8 @@ class QPlayClient
 
     /**
      * Apps section accessor (/app) — read-only
+     *
+     * @return AppSection The app section handler
      */
     public function app(): AppSection
     {
@@ -121,6 +144,8 @@ class QPlayClient
 
     /**
      * App Template section accessor (/app-template)
+     *
+     * @return AppTemplateSection The app template section handler
      */
     public function appTemplate(): AppTemplateSection
     {
@@ -129,6 +154,8 @@ class QPlayClient
 
     /**
      * System API (/status, /health)
+     *
+     * @return SystemSection The system section handler
      */
     public function system(): SystemSection
     {
@@ -137,6 +164,8 @@ class QPlayClient
 
     /**
      * Developer Apps section accessor (/developer/app)
+     *
+     * @return DevAppSection The developer app section handler
      */
     public function developerApp(): DevAppSection
     {
@@ -145,6 +174,8 @@ class QPlayClient
 
     /**
      * Developer App Template section accessor (/developer/app-template)
+     *
+     * @return DevAppTemplateSection The developer app template section handler
      */
     public function developerAppTemplate(): DevAppTemplateSection
     {
@@ -153,6 +184,8 @@ class QPlayClient
 
     /**
      * Developer Integration Template section accessor (/developer/integration-template)
+     *
+     * @return DevIntegrationTemplateSection The developer integration template section handler
      */
     public function developerIntegrationTemplate(): DevIntegrationTemplateSection
     {
@@ -161,6 +194,8 @@ class QPlayClient
 
     /**
      * Developer App Media section accessor (/developer/app)
+     *
+     * @return DevAppMediaSection The developer app media section handler
      */
     public function developerAppMedia(): DevAppMediaSection
     {
@@ -169,6 +204,8 @@ class QPlayClient
 
     /**
      * Developer App Template Media section accessor (/developer/app-template)
+     *
+     * @return DevAppTemplateMediaSection The developer app template media section handler
      */
     public function developerAppTemplateMedia(): DevAppTemplateMediaSection
     {

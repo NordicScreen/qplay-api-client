@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace QPlay\Api\Client\Sections;
 
+use QPlay\Api\Client\Exception\ApiException;
+
 /**
  * Playlist section with CRUD operations.
  *
@@ -16,6 +18,7 @@ class PlaylistSection extends AbstractSection
      *
      * @param array $query Optional query parameters (e.g. filters, pagination)
      * @return string|array API response
+     * @throws ApiException
      */
     public function list(array $query = []): string|array
     {
@@ -27,6 +30,7 @@ class PlaylistSection extends AbstractSection
      *
      * @param int|string $id Playlist identifier
      * @return string|array API response
+     * @throws ApiException
      */
     public function getById(int|string $id): string|array
     {
@@ -38,6 +42,7 @@ class PlaylistSection extends AbstractSection
      *
      * @param array $data Playlist payload
      * @return string|array API response
+     * @throws ApiException
      */
     public function create(array $data): string|array
     {
@@ -50,6 +55,7 @@ class PlaylistSection extends AbstractSection
      * @param int|string $id Playlist identifier
      * @param array $data Fields to update
      * @return string|array API response
+     * @throws ApiException
      */
     public function update(int|string $id, array $data): string|array
     {
@@ -61,6 +67,7 @@ class PlaylistSection extends AbstractSection
      *
      * @param int|string $id Playlist identifier
      * @return string|array API response
+     * @throws ApiException
      */
     public function deleteById(int|string $id): string|array
     {
