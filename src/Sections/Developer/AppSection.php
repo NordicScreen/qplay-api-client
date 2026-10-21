@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace QPlay\Api\Client\Sections\Developer;
 
+use QPlay\Api\Client\Exception\ApiException;
 use QPlay\Api\Client\Sections\AbstractSection;
 
 /**
@@ -18,6 +19,7 @@ class AppSection extends AbstractSection
      *
      * @param array $query Optional query parameters (e.g. filters, pagination)
      * @return string|array API response
+     * @throws ApiException
      */
     public function list(array $query = []): string|array
     {
@@ -29,6 +31,7 @@ class AppSection extends AbstractSection
      *
      * @param int|string $id App identifier
      * @return string|array API response
+     * @throws ApiException
      */
     public function getById(int|string $id): string|array
     {
@@ -40,6 +43,7 @@ class AppSection extends AbstractSection
      *
      * @param array $data Payload for the app to create
      * @return string|array API response
+     * @throws ApiException
      */
     public function create(array $data): string|array
     {
@@ -52,6 +56,7 @@ class AppSection extends AbstractSection
      * @param int|string $id App identifier
      * @param array $data Fields to update
      * @return string|array API response
+     * @throws ApiException
      */
     public function update(int|string $id, array $data): string|array
     {
@@ -63,6 +68,7 @@ class AppSection extends AbstractSection
      *
      * @param int|string $id App identifier
      * @return string|array API response
+     * @throws ApiException
      */
     public function deleteById(int|string $id): string|array
     {
@@ -75,6 +81,7 @@ class AppSection extends AbstractSection
      * @param int|string $appId App identifier
      * @param array $query Optional query parameters (e.g. filters, pagination)
      * @return string|array API response
+     * @throws ApiException
      */
     public function listVersions(int|string $appId, array $query = []): string|array
     {
@@ -88,6 +95,7 @@ class AppSection extends AbstractSection
      * @param int|string $version Major version
      * @param int|string $patchVersion Patch version
      * @return string|array API response
+     * @throws ApiException
      */
     public function getVersion(int|string $appId, int|string $version, int|string $patchVersion): string|array
     {
@@ -100,6 +108,7 @@ class AppSection extends AbstractSection
      * @param int|string $appId App identifier
      * @param array $data Version payload
      * @return string|array API response
+     * @throws ApiException
      */
     public function createVersion(int|string $appId, array $data): string|array
     {
@@ -114,6 +123,7 @@ class AppSection extends AbstractSection
      * @param int|string $patchVersion Patch version
      * @param array $data Fields to update
      * @return string|array API response
+     * @throws ApiException
      */
     public function updateVersion(
         int|string $appId,
@@ -131,6 +141,7 @@ class AppSection extends AbstractSection
      * @param int|string $version Major version
      * @param int|string $patchVersion Patch version
      * @return string|array API response
+     * @throws ApiException
      */
     public function deleteVersion(int|string $appId, int|string $version, int|string $patchVersion): string|array
     {

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace QPlay\Api\Client\Sections;
 
+use QPlay\Api\Client\Exception\ApiException;
+
 /**
  * Integration section with basic CRUD and version helpers.
  *
@@ -16,6 +18,7 @@ class IntegrationSection extends AbstractSection
      *
      * @param array $query Optional query parameters (e.g. filters, pagination)
      * @return string|array API response
+     * @throws ApiException
      */
     public function list(array $query = []): string|array
     {
@@ -27,6 +30,7 @@ class IntegrationSection extends AbstractSection
      *
      * @param int|string $id Integration identifier
      * @return string|array API response
+     * @throws ApiException
      */
     public function getById(int|string $id): string|array
     {
@@ -39,6 +43,7 @@ class IntegrationSection extends AbstractSection
      * @param int|string $id Integration identifier
      * @param array $payload Optional payload for the run
      * @return string|array API response
+     * @throws ApiException
      * @deprecated The `/integration/{id}/run` endpoint is not defined in the API spec.
      */
     public function run(int|string $id, array $payload = []): string|array
@@ -52,6 +57,7 @@ class IntegrationSection extends AbstractSection
      * @param int|string $id Integration identifier
      * @param array $query Optional query parameters (e.g. date ranges)
      * @return string|array API response
+     * @throws ApiException
      * @deprecated The `/integration/{id}/statistics` endpoint is not defined in the API spec.
      */
     public function statistics(int|string $id, array $query = []): string|array

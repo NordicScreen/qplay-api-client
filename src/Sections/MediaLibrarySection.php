@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace QPlay\Api\Client\Sections;
 
+use QPlay\Api\Client\Exception\ApiException;
+
 /**
  * Media library section supporting folders, fonts, and files.
  *
@@ -20,6 +22,7 @@ class MediaLibrarySection extends AbstractSection
      *
      * @param array $query Optional query parameters
      * @return string|array API response
+     * @throws ApiException
      */
     public function listFolders(array $query = []): string|array
     {
@@ -31,6 +34,7 @@ class MediaLibrarySection extends AbstractSection
      *
      * @param int|string $folderId Folder identifier
      * @return string|array API response
+     * @throws ApiException
      */
     public function getFolder(int|string $folderId): string|array
     {
@@ -42,6 +46,7 @@ class MediaLibrarySection extends AbstractSection
      *
      * @param array $data Folder payload
      * @return string|array API response
+     * @throws ApiException
      */
     public function createFolder(array $data): string|array
     {
@@ -54,6 +59,7 @@ class MediaLibrarySection extends AbstractSection
      * @param int|string $folderId Folder identifier
      * @param array $data Fields to update
      * @return string|array API response
+     * @throws ApiException
      */
     public function updateFolder(int|string $folderId, array $data): string|array
     {
@@ -65,6 +71,7 @@ class MediaLibrarySection extends AbstractSection
      *
      * @param int|string $folderId Folder identifier
      * @return string|array API response
+     * @throws ApiException
      */
     public function deleteFolder(int|string $folderId): string|array
     {
@@ -80,6 +87,7 @@ class MediaLibrarySection extends AbstractSection
      *
      * @param array $query Optional query parameters
      * @return string|array API response
+     * @throws ApiException
      */
     public function listFonts(array $query = []): string|array
     {
@@ -93,6 +101,7 @@ class MediaLibrarySection extends AbstractSection
      * @param int|string $id Font ID
      * @param string $filename Font filename
      * @return string|array API response
+     * @throws ApiException
      */
     public function downloadFont(string $uuid, int|string $id, string $filename): string|array
     {
@@ -108,6 +117,7 @@ class MediaLibrarySection extends AbstractSection
      *
      * @param array $query Optional query parameters
      * @return string|array API response
+     * @throws ApiException
      */
     public function listFiles(array $query = []): string|array
     {
@@ -119,6 +129,7 @@ class MediaLibrarySection extends AbstractSection
      *
      * @param int|string $fileId Media file identifier
      * @return string|array API response
+     * @throws ApiException
      */
     public function getFile(int|string $fileId): string|array
     {
@@ -130,6 +141,7 @@ class MediaLibrarySection extends AbstractSection
      *
      * @param array $data Media file payload
      * @return string|array API response
+     * @throws ApiException
      */
     public function createFile(array $data): string|array
     {
@@ -141,6 +153,7 @@ class MediaLibrarySection extends AbstractSection
      *
      * @param int|string $fileId Media file identifier
      * @return string|array API response
+     * @throws ApiException
      */
     public function deleteFile(int|string $fileId): string|array
     {
@@ -152,6 +165,7 @@ class MediaLibrarySection extends AbstractSection
      *
      * @param int|string $fileId Media file identifier
      * @return string|array API response
+     * @throws ApiException
      */
     public function downloadFile(int|string $fileId): string|array
     {
@@ -164,6 +178,7 @@ class MediaLibrarySection extends AbstractSection
      * @param int|string $fileId Media file identifier
      * @param array $data Optional payload
      * @return string|array API response
+     * @throws ApiException
      */
     public function regenerateFile(int|string $fileId, array $data = []): string|array
     {
@@ -176,6 +191,10 @@ class MediaLibrarySection extends AbstractSection
 
     /**
      * @alias listFiles
+     *
+     * @param array $query Optional query parameters
+     * @return string|array API response
+     * @throws ApiException
      */
     public function list(array $query = []): string|array
     {
@@ -184,6 +203,10 @@ class MediaLibrarySection extends AbstractSection
 
     /**
      * @alias getFile
+     *
+     * @param int|string $mediaId Media file identifier
+     * @return string|array API response
+     * @throws ApiException
      */
     public function getById(int|string $mediaId): string|array
     {
@@ -192,6 +215,10 @@ class MediaLibrarySection extends AbstractSection
 
     /**
      * @alias createFile
+     *
+     * @param array $data Media file payload
+     * @return string|array API response
+     * @throws ApiException
      */
     public function create(array $data): string|array
     {
@@ -200,6 +227,10 @@ class MediaLibrarySection extends AbstractSection
 
     /**
      * @alias deleteFile
+     *
+     * @param int|string $mediaId Media file identifier
+     * @return string|array API response
+     * @throws ApiException
      */
     public function deleteById(int|string $mediaId): string|array
     {
@@ -208,6 +239,10 @@ class MediaLibrarySection extends AbstractSection
 
     /**
      * @alias downloadFile
+     *
+     * @param int|string $mediaId Media file identifier
+     * @return string|array API response
+     * @throws ApiException
      */
     public function download(int|string $mediaId): string|array
     {

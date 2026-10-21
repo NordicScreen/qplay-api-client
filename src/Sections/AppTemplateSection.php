@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace QPlay\Api\Client\Sections;
 
+use QPlay\Api\Client\Exception\ApiException;
+
 /**
  * App template section with CRUD and version helpers.
  *
@@ -16,6 +18,7 @@ class AppTemplateSection extends AbstractSection
      *
      * @param array $query Optional query parameters (e.g. filters, pagination)
      * @return string|array API response
+     * @throws ApiException
      */
     public function list(array $query = []): string|array
     {
@@ -27,6 +30,7 @@ class AppTemplateSection extends AbstractSection
      *
      * @param int|string $id Template identifier
      * @return string|array API response
+     * @throws ApiException
      */
     public function getById(int|string $id): string|array
     {
@@ -39,6 +43,7 @@ class AppTemplateSection extends AbstractSection
      * @param int|string $templateId Template identifier
      * @param array $query Optional query parameters (e.g. filters, pagination)
      * @return string|array API response
+     * @throws ApiException
      */
     public function listVersions(int|string $templateId, array $query = []): string|array
     {
@@ -50,15 +55,15 @@ class AppTemplateSection extends AbstractSection
      *
      * @param int|string $templateId Template identifier
      * @param int|string $version Major version
-     * @param int|string|null $patchVersion Patch version (optional if version contains full semver)
+     * @param int|string $patchVersion Patch version
      * @return string|array API response
+     * @throws ApiException
      */
     public function getVersion(
         int|string $templateId,
         int|string $version,
-        int|string|null $patchVersion = null
+        int|string $patchVersion
     ): string|array {
-        $versionStr = $patchVersion !== null ? $version . '.' . $patchVersion : (string)$version;
-        return $this->get($templateId . '/version/' . $versionStr);
+        return $this->get($templateId . '/version/' . $version . '.' . $patchVersion);
     }
 }

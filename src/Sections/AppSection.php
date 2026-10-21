@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace QPlay\Api\Client\Sections;
 
+use QPlay\Api\Client\Exception\ApiException;
+
 /**
  * App section with basic CRUD and version helpers.
  *
@@ -16,6 +18,7 @@ class AppSection extends AbstractSection
      *
      * @param array $query Optional query parameters (e.g. filters, pagination)
      * @return string|array API response
+     * @throws ApiException
      */
     public function list(array $query = []): string|array
     {
@@ -27,6 +30,7 @@ class AppSection extends AbstractSection
      *
      * @param string $id App identifier
      * @return string|array API response
+     * @throws ApiException
      */
     public function getById(string $id): string|array
     {
@@ -39,6 +43,7 @@ class AppSection extends AbstractSection
      * @param string $appId App identifier
      * @param array $query Optional query parameters (e.g. filters, pagination)
      * @return string|array API response
+     * @throws ApiException
      */
     public function listVersions(string $appId, array $query = []): string|array
     {
@@ -52,6 +57,7 @@ class AppSection extends AbstractSection
      * @param string $version Major version
      * @param int|string $patchVersion Patch version
      * @return string|array API response
+     * @throws ApiException
      */
     public function getVersion(string $appId, string $version, int|string $patchVersion): string|array
     {

@@ -20,6 +20,14 @@ class ApiException extends RuntimeException
     /** @var array */
     protected array $details;
 
+    /**
+     * Construct a new API exception.
+     *
+     * @param string $message The exception message
+     * @param int $statusCode The HTTP status code
+     * @param array $details Additional error details (e.g., validation errors)
+     * @param Throwable|null $previous The previous exception for chaining
+     */
     public function __construct(
         string $message = "API Error",
         int $statusCode = 0,
@@ -33,6 +41,8 @@ class ApiException extends RuntimeException
 
     /**
      * Get HTTP status code.
+     *
+     * @return int The HTTP status code
      */
     public function getStatusCode(): int
     {
@@ -41,6 +51,8 @@ class ApiException extends RuntimeException
 
     /**
      * Returns additional error information (e.g., validation errors)
+     *
+     * @return array The error details
      */
     public function getDetails(): array
     {

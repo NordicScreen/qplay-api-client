@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace QPlay\Api\Client\Sections\Developer;
 
+use QPlay\Api\Client\Exception\ApiException;
 use QPlay\Api\Client\Sections\AbstractSection;
 
 /**
@@ -19,6 +20,7 @@ class AppTemplateMediaSection extends AbstractSection
      * @param int|string $templateId Template identifier
      * @param string $version Template version string
      * @return string|array API response
+     * @throws ApiException
      */
     public function getMedia(int|string $templateId, string $version): string|array
     {
@@ -32,6 +34,7 @@ class AppTemplateMediaSection extends AbstractSection
      * @param string $version Template version string
      * @param array $data Upload payload
      * @return string|array API response
+     * @throws ApiException
      */
     public function uploadMedia(int|string $templateId, string $version, array $data): string|array
     {
@@ -45,6 +48,7 @@ class AppTemplateMediaSection extends AbstractSection
      * @param string $version Template version string
      * @param string $fileUuid File UUID
      * @return string|array API response
+     * @throws ApiException
      */
     public function deleteMedia(int|string $templateId, string $version, string $fileUuid): string|array
     {

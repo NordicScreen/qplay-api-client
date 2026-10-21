@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace QPlay\Api\Client\Sections;
 
+use QPlay\Api\Client\Exception\ApiException;
+
 /**
  * Integration template section with CRUD, version, and script helpers.
  *
@@ -16,6 +18,7 @@ class IntegrationTemplateSection extends AbstractSection
      *
      * @param array $query Optional query parameters (e.g. filters, pagination)
      * @return string|array API response
+     * @throws ApiException
      */
     public function list(array $query = []): string|array
     {
@@ -27,6 +30,7 @@ class IntegrationTemplateSection extends AbstractSection
      *
      * @param int|string $id Template identifier
      * @return string|array API response
+     * @throws ApiException
      */
     public function getById(int|string $id): string|array
     {
@@ -39,6 +43,7 @@ class IntegrationTemplateSection extends AbstractSection
      * @param int|string $templateId Template identifier
      * @param array $query Optional query parameters (e.g. filters, pagination)
      * @return string|array API response
+     * @throws ApiException
      */
     public function listVersions(int|string $templateId, array $query = []): string|array
     {
@@ -51,6 +56,7 @@ class IntegrationTemplateSection extends AbstractSection
      * @param int|string $templateId Template identifier
      * @param int|string $versionId Version identifier
      * @return string|array API response
+     * @throws ApiException
      */
     public function getVersion(int|string $templateId, int|string $versionId): string|array
     {
@@ -64,6 +70,7 @@ class IntegrationTemplateSection extends AbstractSection
      * @param int|string $versionId Version identifier
      * @param array $query Optional query parameters (e.g. filters, pagination)
      * @return string|array API response
+     * @throws ApiException
      */
     public function listScripts(int|string $templateId, int|string $versionId, array $query = []): string|array
     {
@@ -77,6 +84,7 @@ class IntegrationTemplateSection extends AbstractSection
      * @param int|string $versionId Version identifier
      * @param int|string $identifier Script identifier
      * @return string|array API response
+     * @throws ApiException
      */
     public function getScript(int|string $templateId, int|string $versionId, int|string $identifier): string|array
     {

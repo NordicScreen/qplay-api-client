@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace QPlay\Api\Client\Sections;
 
+use QPlay\Api\Client\Exception\ApiException;
+
 /**
  * Player section with CRUD, status, command, and relation helpers.
  *
@@ -16,6 +18,7 @@ class PlayersSection extends AbstractSection
      *
      * @param array $query Optional query parameters (e.g. filters, pagination)
      * @return string|array API response
+     * @throws ApiException
      */
     public function list(array $query = []): string|array
     {
@@ -27,6 +30,7 @@ class PlayersSection extends AbstractSection
      *
      * @param int|string $playerId Player identifier
      * @return string|array API response
+     * @throws ApiException
      */
     public function getById(int|string $playerId): string|array
     {
@@ -38,6 +42,7 @@ class PlayersSection extends AbstractSection
      *
      * @param array $data Player payload
      * @return string|array API response
+     * @throws ApiException
      */
     public function create(array $data): string|array
     {
@@ -50,6 +55,7 @@ class PlayersSection extends AbstractSection
      * @param int|string $playerId Player identifier
      * @param array $data Fields to update
      * @return string|array API response
+     * @throws ApiException
      */
     public function update(int|string $playerId, array $data): string|array
     {
@@ -61,6 +67,7 @@ class PlayersSection extends AbstractSection
      *
      * @param int|string $playerId Player identifier
      * @return string|array API response
+     * @throws ApiException
      */
     public function deleteById(int|string $playerId): string|array
     {
@@ -72,6 +79,7 @@ class PlayersSection extends AbstractSection
      *
      * @param int|string $playerId Player identifier
      * @return string|array API response
+     * @throws ApiException
      */
     public function getStatus(int|string $playerId): string|array
     {
@@ -83,6 +91,7 @@ class PlayersSection extends AbstractSection
      *
      * @param int|string $playerId Player identifier
      * @return string|array API response
+     * @throws ApiException
      */
     public function getScreenshot(int|string $playerId): string|array
     {
@@ -94,6 +103,7 @@ class PlayersSection extends AbstractSection
      *
      * @param int|string $playerId Player identifier
      * @return string|array API response
+     * @throws ApiException
      */
     public function getBlackscreenSchedule(int|string $playerId): string|array
     {
@@ -106,6 +116,7 @@ class PlayersSection extends AbstractSection
      * @param int|string $playerId Player identifier
      * @param array $data Command payload
      * @return string|array API response
+     * @throws ApiException
      */
     public function sendCommand(int|string $playerId, array $data = []): string|array
     {
@@ -118,6 +129,7 @@ class PlayersSection extends AbstractSection
      * @param int|string $playerId Player identifier
      * @param int|string $presentationVersionId Presentation version identifier
      * @return string|array API response
+     * @throws ApiException
      */
     public function unlinkPresentation(int|string $playerId, int|string $presentationVersionId): string|array
     {
@@ -130,6 +142,7 @@ class PlayersSection extends AbstractSection
      * @param int|string $playerId Player identifier
      * @param int|string $eventId Event identifier
      * @return string|array API response
+     * @throws ApiException
      */
     public function unlinkEvent(int|string $playerId, int|string $eventId): string|array
     {
