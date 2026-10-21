@@ -121,7 +121,7 @@ class AppSection extends AbstractSection
      *
      * @param int|string $appId App identifier
      * @param int|string $version Major version
-     * @param int|string|null $patchVersion Patch version (or pass $data as 3rd param if full version string is used)
+     * @param int|string $patchVersion Patch version
      * @param array $data Fields to update
      * @return string|array API response
      * @throws ApiException
@@ -129,12 +129,9 @@ class AppSection extends AbstractSection
     public function updateVersion(
         int|string $appId,
         int|string $version,
-        int|string|array $patchVersion,
+        int|string $patchVersion,
         array $data = []
     ): string|array {
-        if (is_array($patchVersion)) {
-            return $this->patch($appId . '/version/' . $version, $patchVersion);
-        }
         return $this->patch($appId . '/version/' . $version . '.' . $patchVersion, $data);
     }
 
